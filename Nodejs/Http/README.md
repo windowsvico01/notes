@@ -52,32 +52,28 @@
 #### server.listen()
 启动 HTTP 服务器监听连接。
 #### server.listening
-- `boolean` 表明服务器是否正在监听连接。
+- `<boolean>` 表明服务器是否正在监听连接。
 #### server.setTimeout([msecs][, callback])
-- msecs <number> 默认值：120000
-- callback <Function>
+- msecs `<number>` 默认值：120000
+- callback `<Function>`
 - 返回 <http.Server>
 设置套接字的超时值，并在服务器对象上触发 'timeout' 事件，如果发生超时，则将套接字作为参数传入。
 如果服务器对象上有 'timeout' 事件监听器，则将使用超时的套接字作为参数调用它。
 默认情况下，服务器的超时值为 2 分钟，如果超时，套接字会自动销毁。 但是，如果将回调分配给服务器的 'timeout' 事件，则必须显式处理超时。
 #### server.timeout
-- <number> 超时时间  默认 120000
+- `<number>` 超时时间  默认 120000
 #### server.keepAliveTimeout
-- <number> 超时时间 默认 5000
+- `<number>` 超时时间 默认 5000
 #### server.maxHeadersCount
-- <number> 默认值：2000
+- `<number>` 默认值：2000
 限制最大传入请求头数。 如果设置为 0，则不会应用任何限制。
 #### server.headersTimeout
-- <number> 默认值：40000
+- `<number>` 默认值：40000
 限制解析器等待接收完整 HTTP 请求头的时间。
 
 ### http.ServerResponse 类
-- 继承自 <stream>
+- 继承自 `<stream>`
 此对象由 HTTP 服务器在内部创建，而不是由用户创建。 它作为第二个参数传给 'request' 事件。
-
-
-
-
 
 ### http.Agent 类
 Agent 负责管理 HTTP 客户端的连接持久性和重用
