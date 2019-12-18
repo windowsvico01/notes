@@ -52,7 +52,7 @@
 #### server.listen()
 启动 HTTP 服务器监听连接。
 #### server.listening
-- <boolean> 表明服务器是否正在监听连接。
+- `boolean` 表明服务器是否正在监听连接。
 #### server.setTimeout([msecs][, callback])
 - msecs <number> 默认值：120000
 - callback <Function>
