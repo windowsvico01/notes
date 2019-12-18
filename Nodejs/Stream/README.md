@@ -1,6 +1,6 @@
 ### Stream(流)
 
-####Node.js，Stream 有四种流类型：
+#### Node.js，Stream 有四种流类型：
 - Readable - 可读操作。
 - Writable - 可写操作。
 - Duplex - 可读可写操作.
