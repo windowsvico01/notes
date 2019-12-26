@@ -38,8 +38,8 @@ ax+|类似'a+',但是如果文件路径存在，则文件读取追加失败
 #### 参数
 - `path` 文件路径
 - `callback` 回调函数，callback(err, stats) stats 是fs.stats对象
-方法|描
----|:---:
+方法|描述
+---|:-----------------------:
 stats.isFile()|如果是文件返回true，否则false
 stats.isDirectory()|如果是目录返回true，否则false
 stats.isBlockDevice()|如果是块设备返回true，否则false
