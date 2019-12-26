@@ -18,5 +18,5 @@
 - `callback` 回调函数，callback(err, fd);
 
 Flag|描述
----|---:
+---|:---:
 r|以读取模式打开文件
