@@ -98,8 +98,8 @@ stats.isSocket()|如果是Socket返回true，否则false
 #### 参数
 - `path` 文件路径
 - `options`
--- `recursive` 是否以递归方式创建目录，默认false
--- `mode` 设置目录权限，默认0777
+   - `recursive` 是否以递归方式创建目录，默认false
+   - `mode` 设置目录权限，默认0777
 - `callback` 回调函数没有参数
 
 ### 读取目录
