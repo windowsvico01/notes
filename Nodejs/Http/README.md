@@ -23,6 +23,8 @@
 ]
 ```
 [套接字(socket)](https://baike.baidu.com/item/%E5%A5%97%E6%8E%A5%E5%AD%97/9637606?fr=aladdin)
+### http.createServer([options][, requestListener])
+
 ### http.Server 类
 #### close 事件
 当服务器关闭时触发。
