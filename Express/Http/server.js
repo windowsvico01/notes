@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
+
+const api = require('./api/index.js');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
+app.use(cookieParser('123456'));
 app.use('/public', express.static('public'));
+app.use('/api', api);
 
 app.get('/index', (req, res) => {
     res.sendFile(__dirname + '/' + 'index.html');

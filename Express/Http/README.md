@@ -18,6 +18,7 @@ Express 应用使用回调函数的参数：request 和 response 对象来处理
 
 ### 静态文件
 - Express 提供了内置中间件express.static来设置静态文件, 图片，css，js 等
+  到指定目录中查找客户端需要的资源文件内容，并且将其返回
 ```javascript
   app.use('/public', express.static('public'));
 ```

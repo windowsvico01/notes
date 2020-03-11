@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <form action="http://127.0.0.1:8081/process_post" method="post">
-    First Name : <input type="text" name="first_name" /> <br>
-    Last Name: <input type="text" name="last_name" /> <br>
-    <input type="submit" value="submit">
-  </form>  
+    Account : <input type="text" id="account" /> <br>
+    Password : <input type="password" id="password" /> <br>
+    <input type="submit" value="submit" id="submitBtn">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="http://127.0.0.1:8081/public/utils/sha1.min.js"></script>
+  <script src="http://127.0.0.1:8081/public/js/index.js"></script>
 </body>
 </html>

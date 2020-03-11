@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <title>YCHAT</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      .rooms {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .rooms li {
+        display: block;
+        height: 30px;
+      }
+      .rooms li a {
+        display: block;
+        height: 30px;
+        cursor: pointer;
+      }
+      .result {
+        width: 100%;
+        height: auto;
+        min-height: 100px;
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="text" placeholder="用户名" id="userName" />
+      <button id="login">登录</button>
+    </div>
+    <div class="result" id="publicRes">
+      <div>当前房间：<span id="currentRoom"></span></div>
+      <div>大厅消息------------------------</div>
+    </div>
+    <ul class="rooms" id="rooms">
+      <li data-room="room1"><a>room1</a></li>
+      <li data-room="room2"><a>room2</a></li>
+      <li data-room="room3"><a>room3</a></li>
+      <li data-room="room4"><a>room4</a></li>
+    </ul>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>发送</button>
+    </form>
+  </body>
+  <script src="/test/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    function socket(name) {
+      this.socket = '';
+      this.config = {
+        url: location.href,
+        nameSpace: '',
+        room: '',
+        name: name,
+      }
+    }
+    socket.prototype = {
+      init: function() {
+        var _this = this;
+        if (!_this.config.name) {
+          console.log('用户名未输入');
+          return;
+        }
+        this.socket = io({
+          path: '/test',
+          query: {
+            name: _this.config.name,
+          }
+        });
+        this.socket && this.socket.on('send_from_server', function(msg, from, room){
+          if (room) { // 发送至房间
+            $('#messages').append($('<li>').text(from + ':' + msg));
+          } else { // 发送至大厅
+            $('#publicRes').append($('<div>').text(from + ':' + msg));
+          }
+        });
+        this.socket && this.socket.on('error', function (data) {
+          console.log(data || 'error');
+        });
+        this.bindSelectRoom();
+        this.bindSendMessage();
+      },
+      bindSelectRoom: function() {
+        var _this = this;
+        $('#rooms').find('li').each(function(index, el){
+          $(el).on('click', function(e){
+            _this.config.room && _this.socket.emit('leaveRoom', _this.config.room);
+            _this.config.room = $(el).data('room');
+            $('#currentRoom').html(_this.config.room);
+            _this.socket.emit('joinRoom', _this.config.room);
+          })
+        })
+      },
+      bindSendMessage: function() {
+        var _this = this;
+        $('form').submit(function(e){
+          var submitMsg = $('#m').val();
+          if (!submitMsg) return;
+          e.preventDefault();
+          if (_this.config.room) _this.socket.emit('send_from_client', _this.config.room, submitMsg);
+          else _this.socket.emit('send_from_client', '', submitMsg);
+          $('#m').val('');
+          return false;
+        });
+      }
+    }
+    $(function () {
+      var io = '';
+      $('#login').on('click', function(){
+        var name = $('#userName').val();
+        if (!name) return;
+        io = new socket(name);
+        io.init();
+      })
+    });
+  </script>
+</html>
