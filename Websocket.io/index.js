@@ -111,6 +111,6 @@ saveMsg = (room, params, cb) => {
   })
 }
 server.setTimeout(600*1000);
-server.listen(3000, '172.23.240.92', function() {
+server.listen(3000, function() {
     console.log('正在监听3000端口');
 })
