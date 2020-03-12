@@ -4,8 +4,7 @@ class Login {
     constructor() {
       
     }
-    init() {
-      
+    init() {   
       $('#submitBtn').on('click', () => {
         this.account = $('#account').val();
         this.password = $('#password').val();
@@ -19,12 +18,16 @@ class Login {
                   password: passwordSha1,
               };
           $.post('/api/login', params, function(res, err) {
-            if (res.code !== 0) {
-                console.log('失败'+ err.msg);
-                return
+            if (res.code === 0) location.href = '/';
+            else {
+              alertMsg(res.msg, 'danger');
+              if (res.code === -1) setTimeout(() => {
+                location.href = '/';
+              }, 2000)
+              return;
             }
             // alert('登录成功！');
-            location.href = '/';
+
           })  
       })
     }

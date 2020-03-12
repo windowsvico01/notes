@@ -52,12 +52,13 @@ router.post('/register', urlencodedParser, (req, res, next) => {
     })
   })
 })
-// 登录
+// 登录  // -1 已有用户登录  -2 参数错误 -3 获取数据失败 -4 账号密码错误  -5 系统错误
 router.post('/login', urlencodedParser, (req, res) => {
-  if (req.signedCookies.token) {
+  if (req.cookies.token) {
+    console.log(req.signedCookies.token);
     res.send({
       'code': -1,
-      'msg': '已经有账户登录',
+      'msg': '已经有用户登录',
     })
     return;
   }
@@ -72,12 +73,12 @@ router.post('/login', urlencodedParser, (req, res) => {
   db.query(sql, '', (err, result) => {
     if (err) {
       res.send({
-        'code': -1,
+        'code': -3,
         'msg': err.message
       })
       return;
     }
-    if (result[0].password == req.body.password) {
+    if (result && result[0] && result[0].password == req.body.password) {
       const currentTimer = moment().valueOf();
       const token = sha1(JSON.stringify({
         startTime: currentTimer,
@@ -89,6 +90,10 @@ router.post('/login', urlencodedParser, (req, res) => {
       db.query(updateToken, updateParams, (uErr, uResult) => {
         if (uErr) {
           console.log('插入token失败,[UPDATE ERROR] - ',err.message);
+          res.send({
+            'code': -5,
+            'msg': '系统错误',
+          });
           return;
         }
         res.cookie('token', token);
@@ -99,8 +104,8 @@ router.post('/login', urlencodedParser, (req, res) => {
       })
     } else {
       res.send({
-        'code': -1,
-        'msg': '密码错误',
+        'code': -4,
+        'msg': '账号或密码错误，请重新输入',
       });
     }
   })

@@ -7,6 +7,9 @@ db.query = (sqlStr, sqlParams, fn) => {
     password: '104Yangpu.,',
     port: '3306',                   
     database: 'note',
+    // password: '104yangpu',
+    // port: '3306',                   
+    // database: 'node',
   });
   connection.connect(() => {
     console.log('已连接');
