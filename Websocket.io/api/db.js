@@ -4,7 +4,7 @@ db.query = (sqlStr, sqlParams, fn) => {
   const connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: '104yangpu',
+    password: '104Yangpu.,',
     port: '3306',                   
     database: 'note',
   });
