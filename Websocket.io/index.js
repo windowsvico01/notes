@@ -9,7 +9,14 @@ const api = require('./api/index.js');
 const db = require('./api/db.js');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-
+// app.all('*', function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   res.header('Access-Control-Allow-Methods', '*');
+//   res.header('Content-Type', 'application/json;charset=utf-8');
+//   next();
+// });
 app.use(cookieParser('123456'));
 // app.use('/client', express.static('client'));
 app.use('/public', express.static('public'));
@@ -66,6 +73,7 @@ io.on('connection', function(socket) {
     }
     io.emit('send_from_server', socket.handshake.query.name +'来啦');
     socket.on('disconnect', function(data){
+      console.log(socket.handshake.query);
       console.log('用户断开');
     });
     socket.on('send_from_client', function(room, roomId, msg){     
@@ -88,9 +96,9 @@ io.on('connection', function(socket) {
         // console.log(rooms); // [ <socket.id>, 'room 237' ]
       })
     });
-    socket.on('leaveRoom', function(roomId) {
+    socket.on('leaveRoom', function(roomId, uid) {
       socket.leave(roomId, function(){
-        // console.log('leaveRoom' + roomId);
+        console.log(uid);
         let rooms = Object.keys(socket.rooms);
         // console.log(rooms); // [ <socket.id>, 'room 237' ]
       })

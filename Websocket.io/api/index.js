@@ -55,7 +55,6 @@ router.post('/register', urlencodedParser, (req, res, next) => {
 // 登录  // -1 已有用户登录  -2 参数错误 -3 获取数据失败 -4 账号密码错误  -5 系统错误
 router.post('/login', urlencodedParser, (req, res) => {
   if (req.cookies.token) {
-    console.log(req.signedCookies.token);
     res.send({
       'code': -1,
       'msg': '已经有用户登录',
@@ -185,7 +184,6 @@ router.post('/getRooms', urlencodedParser, (req, res) => {
       sql = `${sql} AND ${key}=${req.body[key]}`;
     })
   }
-  console.log(sql);
   db.query(sql, '', (err, result) => {
     if (err) {
       res.send({
@@ -194,7 +192,6 @@ router.post('/getRooms', urlencodedParser, (req, res) => {
       })
       return;
     }
-    console.log(result);
     res.send({
       'code': 0,
       data: result,

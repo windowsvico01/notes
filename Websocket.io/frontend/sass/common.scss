@@ -2,20 +2,22 @@
   height: 100%;
   overflow: scroll;
   /* height: 300px; */
-  /* padding-bottom: 300px; */ }
-  .chatLog div {
+  /* padding-bottom: 300px; */
+  div {
     width: 100%;
     height: auto;
-    overflow: hidden; }
-    .chatLog div .header {
+    overflow: hidden;
+    .header {
       padding: 5px 8px;
       display: block;
       float: left;
       max-width: 100px;
       text-align: center;
       margin: 10px 0 10px 0;
-      background: #fff; }
-  .chatLog span {
+      background: #fff;
+    }
+  }
+  span {
     background-color: #eee;
     padding: 5px 8px;
     display: block;
@@ -25,30 +27,38 @@
     position: relative;
     max-width: 70%;
     float: left;
-    line-height: 18.5px; }
-    .chatLog span ::after {
+    line-height: 18.5px;
+    ::after {
       content: ' ';
       border: 8px solid #fff;
       border-right: 8px solid #eee;
       position: absolute;
       top: 6px;
-      left: -16px; }
-  .chatLog .mine span {
-    background: #90EE90;
-    float: right; }
-    .chatLog .mine span ::after {
-      display: none; }
-    .chatLog .mine span ::before {
-      content: ' ';
-      border: 8px solid #fff;
-      border-left: 8px solid #90EE90;
-      position: absolute;
-      top: 6px;
-      right: -16px; }
-  .chatLog .mine .header {
+      left: -16px;
+    }
+  }
+  .mine {
+    span {
+      background: #90EE90;
+      float: right;
+      ::after {
+        display: none;
+      }
+      ::before {
+        content: ' ';
+        border: 8px solid #fff;
+        border-left: 8px solid #90EE90	;
+        position: absolute;
+        top: 6px;
+        right: -16px;
+      }
+    }
+    .header {
     display: block;
-    float: right; }
-  .chatLog .public span {
+    float: right;
+    }
+  }
+  .public span {
     background-color: #fff;
     display: block;
     margin: 10px auto 10px;
@@ -57,9 +67,12 @@
     color: #856404;
     padding: 0;
     float: none;
-    text-align: center; }
-    .chatLog .public span ::after {
-      display: none; }
-
+    text-align: center;
+    ::after {
+      display: none;
+    }
+  }
+}
 .hide {
-  display: none; }
+  display: none;
+}
