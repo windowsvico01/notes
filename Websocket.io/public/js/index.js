@@ -4,6 +4,7 @@ class Index {
     
   }
   init() {
+    alert('INDEX INIT');
     this.getUserInfo((data) => {
       const tRoom = new Room({ username: data.username, uid: data.uid });
       tRoom.init();
@@ -16,6 +17,7 @@ class Index {
     })
   }
 }
+
 
 class Room {
   rooms = [];
