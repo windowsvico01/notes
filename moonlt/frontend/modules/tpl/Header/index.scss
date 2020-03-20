@@ -1,0 +1,76 @@
+.module-wrapper {
+  .header {
+    width: 1200px;
+    height: 44px;
+    margin: 0 auto;
+    padding: 10px 160px 10px 160px;
+    position: relative;
+    display: flex;
+    border-bottom: 1px solid #eee;
+    .logo {
+        width: 150px;
+        height: 34px;
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        line-height: 34px;
+    }
+    .nav {
+        flex: 1;
+        height: 24px;
+        display: block;
+        margin-left: 20px;
+        margin-right: 20px;
+        li {
+            display: block;
+            height: 24px;
+            width: 50px;
+            overflow: hidden;
+            margin-right: 10px;
+            float: left;
+            text-align: center;
+            a {
+                text-decoration: none;
+                color: #999;
+            }
+            /*正常的未被访问过的链接*/
+            a:link {
+                text-decoration: none;
+            }
+            /*已经访问过的链接*/
+            a:visited {
+                text-decoration: none;
+            }
+            /*鼠标划过(停留)的链接*/
+            a:hover {
+                text-decoration: none;
+            }
+            /* 正在点击的链接，鼠标在元素上按下还没有松开*/
+            a:active {
+                text-decoration: none;
+            }
+            /* 获得焦点的时候 鼠标松开时显示的颜色*/
+            a:focus {
+                text-decoration: none;
+            }
+        }
+    }
+    .user {
+        width: 150px;
+        height: 34px;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        .buttons {
+            width: 100%;
+            height: 34px;
+            text-align: center;
+            .btn {
+                height: 34px;
+                margin-right: 10px;
+                line-height: 21px;
+            }
+        }
+    }
+  }
+}

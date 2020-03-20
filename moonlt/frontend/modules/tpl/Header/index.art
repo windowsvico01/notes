@@ -1,0 +1,17 @@
+<div class="header">
+  <div class="logo">logo</div>
+  <ul class="nav">
+    <li><a href="/">首页1</a></li>
+    <li><a href="/chat.html">聊天</a></li>
+  </ul>
+  <div class="user">
+    {{if isLogin}}
+      <div>{{userInfo.name}}</div>
+    {{else}}
+      <div class="buttons">
+        <a type="button" class="btn btn-warning" href="/login.html">登录</a>
+        <a type="button" class="btn btn-warning" href="/register.html">注册</a>
+      </div>
+    {{/if}}
+  </div>
+</div>

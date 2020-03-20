@@ -1,0 +1,33 @@
+.row {
+  width: 100%;
+  height: auto;
+  margin: 0 auto 10px; }
+
+.row-full {
+  width: 100%;
+  height: 44px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  z-index: 99; }
+  .row-full .col-full {
+    width: 100%; }
+
+.row-1200 {
+  width: 1200px; }
+
+.row-600-300 {
+  width: 920px;
+  margin: 10px auto;
+  overflow: hidden; }
+  .row-600-300 .col-600 {
+    width: 600px;
+    height: auto;
+    float: left; }
+  .row-600-300 .col-300 {
+    width: 300px;
+    height: auto;
+    float: left;
+    margin-left: 20px; }

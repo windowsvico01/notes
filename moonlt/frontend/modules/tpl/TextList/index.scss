@@ -1,0 +1,23 @@
+.module-wrapper {
+  .text-list {
+    width: 100%;
+    height: auto;
+    ul {
+      display: block;
+      padding: 10px;
+      padding-top: 0;
+      li {
+        display: block;
+        height: 30px;
+        width: 100%;
+        background: #eee;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        line-height: 30px;
+        :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

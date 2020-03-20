@@ -1,0 +1,9 @@
+.swiper-container {
+  width: 600px;
+  height: 300px;
+  overflow: hidden; }
+
+.swiper-slide {
+  background: pink;
+  width: 600px;
+  height: 300px; }

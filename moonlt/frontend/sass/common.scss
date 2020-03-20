@@ -1,0 +1,78 @@
+.chatLog {
+  height: 100%;
+  overflow: scroll;
+  /* height: 300px; */
+  /* padding-bottom: 300px; */
+  div {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    .header {
+      padding: 5px 8px;
+      display: block;
+      float: left;
+      max-width: 100px;
+      text-align: center;
+      margin: 10px 0 10px 0;
+      background: #fff;
+    }
+  }
+  span {
+    background-color: #eee;
+    padding: 5px 8px;
+    display: block;
+    min-height: 28.5px;
+    border-radius: 4px;
+    margin: 10px;
+    position: relative;
+    max-width: 70%;
+    float: left;
+    line-height: 18.5px;
+    ::after {
+      content: ' ';
+      border: 8px solid #fff;
+      border-right: 8px solid #eee;
+      position: absolute;
+      top: 6px;
+      left: -16px;
+    }
+  }
+  .mine {
+    span {
+      background: #90EE90;
+      float: right;
+      ::after {
+        display: none;
+      }
+      ::before {
+        content: ' ';
+        border: 8px solid #fff;
+        border-left: 8px solid #90EE90	;
+        position: absolute;
+        top: 6px;
+        right: -16px;
+      }
+    }
+    .header {
+    display: block;
+    float: right;
+    }
+  }
+  .public span {
+    background-color: #fff;
+    display: block;
+    margin: 10px auto 10px;
+    position: relative;
+    max-width: 80%;
+    color: #856404;
+    padding: 0;
+    float: none;
+    text-align: center;
+    ::after {
+      display: none;
+    }
+  }
+}
+.hide {
+  display: none;
+}

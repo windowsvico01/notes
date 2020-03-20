@@ -1,0 +1,12 @@
+{{if type == 'row' }}
+  <div class="row {{template}}">
+    {{set col = template.split('-').slice(1)}}
+    {{each modules}}
+      <div class="col-{{col[$index]}}">
+        {{each $value}}
+          <div class="module-wrapper {{$value.template}}" template-type="{{$value.template}}"></div>
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
