@@ -56,7 +56,7 @@ const LogCon = styled.div`
         text-align: left;
         line-height: 40px;
         font-size: 14px;
-        color: #fff;
+        color: #999;
     }
    }
 `;
@@ -135,25 +135,25 @@ class Header extends React.PureComponent {
         };
     }
     render() {
-        const {loginStatus} = this.state;
-        
+        const { userInfo } = this.props;
+        console.log(userInfo);
         return (
             <Bar>
                 <LogoCon><PandaIcon style={{ lineHeight: '40px', fontSize: '25px', display: 'inline-block', float: 'left', marginTop: '-3px', marginRight: '10px' }} /> MOONLT</LogoCon>
                 <LogCon>
-                    {loginStatus === '0' && 
-                    <div className="btnCon">
-                        <Button style={{marginRight:'20px'}}>登录</Button>
-                        <Button>注册</Button>
-                    </div>
-                    }
-                    {loginStatus === '1' && 
+                    {(userInfo && userInfo.uid) ?  
                     <Dropdown overlay={menu}>
-                        <div className="personInfo" href="#">
-                            <Avatar size={38} icon="user"></Avatar>
-                            <span className="userName">二三四五六</span>
-                        </div>
+                      <div className="personInfo" href="#">
+                          {userInfo.head_image ? <Avatar size={38} src={userInfo.head_image}></Avatar> : <Avatar size={38}>{userInfo.username && userInfo.username.substring(0,1)}</Avatar>}
+                          
+                          <span className="userName">{userInfo.username}</span>
+                      </div>
                     </Dropdown>
+                    :
+                    <div className="btnCon">
+                        <Button style={{marginRight:'20px'}} href="/login.html">登录</Button>
+                        <Button href="/register.html">注册</Button>
+                    </div>
                     }
                 </LogCon>
                 

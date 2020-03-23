@@ -18,7 +18,7 @@ export default {
         label: '用户管理',
         show: true,
         hasReducer: true,
-        hasSagas: false,
+        hasSagas: true,
         icon: 'edit',
       }, {
         path: 'group',

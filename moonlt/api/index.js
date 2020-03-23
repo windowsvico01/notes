@@ -114,7 +114,7 @@ router.post('/getUserInfo', urlencodedParser, (req, res) => {
   let tToken = req.body.token || req.cookies.token;
   if (!tToken || tToken === 'null') {
     res.send({
-      'code': -1,
+      'code': -9,
       'msg': '当前没有用户登录',
     })
     // res.redirect(301, '/login.html');

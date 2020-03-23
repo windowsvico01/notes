@@ -47,4 +47,15 @@ const FormOperate = styled.div`
     margin-right: 10px;
   }
 `;
-export { Wrapper, FloatWrapper, Title, FormOperate }
+const SpinCon = styled.div`
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+`;
+export { Wrapper, FloatWrapper, Title, FormOperate, SpinCon }

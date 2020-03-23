@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch, Link, withRouter } from 'react-rou
 import { Layout } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectShowLogin, selectLocation, selectMenus } from '@/containers/App/selectors';
+import { selectShowLogin, selectLocation, selectMenus, selectUserInfo } from '@/containers/App/selectors';
 import * as actions from '@/containers/App/actions';
 
 import Header from '@/components/Header';
@@ -13,10 +13,10 @@ const { Content } = Layout;
 class Dashboard extends Component {
   
   render() {
-    const { location, menus, showLogin } = this.props;
+    const { location, menus, userInfo } = this.props;
     return (
       <Layout style={{ background: '#fff' }}>
-        <Header />
+        <Header userInfo={userInfo} />
         <Layout style={{ background: '#fff' }}>
           <MSider menus={menus} />
           <Layout style={{ background: '#fff' }}>
@@ -25,10 +25,11 @@ class Dashboard extends Component {
                 padding: '0 0 24px 24px',
                 margin: 0,
                 minHeight: 280,
+                position: 'relative',
               }}
             >  
               <Bread location={location} />   
-               { menus && menus.length && this.props.children }
+               { menus && !!menus.length && this.props.children }
             </Content>
           </Layout>
         </Layout>
@@ -40,7 +41,8 @@ const mapStateToProps = (state) => {
   return {
     showLogin: selectShowLogin(state),
     location: selectLocation(state),
-    menus: selectMenus(state)
+    menus: selectMenus(state),
+    userInfo: selectUserInfo(state),
   };
 }
 const mapActionsToProps = (dispatch) => bindActionCreators({ ...actions }, dispatch);

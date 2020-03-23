@@ -11,9 +11,7 @@ class Index {
   }
   getUserInfo(cb) {
     Api.post('/api/getUserInfo', {token: getCookie('token')}, (res, err) => {
-      console.log(res);
-      console.log(err);
-      if ([-1, -2].indexOf(res.code) !== -1) location.href = `${Api.host}/login.html`;
+      if ([-1, -2, -9].indexOf(res.code) !== -1) location.href = `${Api.host}/login.html`;
       if (res.code === 0) cb(res.data);
     })
   }

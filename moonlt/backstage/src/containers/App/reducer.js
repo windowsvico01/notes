@@ -13,7 +13,7 @@ import {
   LOADING, LOADED, SHOW_DIALOG, HIDE_DIALOG, LOGIN, LOAD_USERINFO_SUCCESS
 } from './actions';
 // The initial state of the App
-import { permissionMap } from '@/utils/permission.js';
+// import { permissionMap } from '@/utils/permission.js';
 export const initialState = {
   dialog: null,
   loading: {},
@@ -22,7 +22,6 @@ export const initialState = {
   showLogin: false,
   userData: {
     repositories: false,
-    permissions: permissionMap, // 权限菜单
     menus: [], // 菜单
     userInfo: {}, // 用户信息
   },

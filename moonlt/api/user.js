@@ -167,6 +167,78 @@ router.post('/updateMenu', urlencodedParser, (req, res, next) => {
     })
   })
 })
-
+/**
+ * 获取用户列表 getUsers
+ * @param {string} token - required - '用户token'
+ * @param {string} uid - nullable - '用户id ，分割'
+ * @param {string} username - nullable - '用户名称 ，分割'
+ * @param {string} gid - nullable - '分组id  ，分割'
+ */
+router.post('/getUsers', urlencodedParser, (req, res) => {
+  const { token, uid, username, gid, page = 1, limit = 20 } = req.body;
+  if (!req.cookies.token && !token) {
+    res.send({
+      'code': -9,
+      'msg': '用户未登录',
+    });
+    return;
+  }
+  let sql = 'SELECT uid, username, account, head_image, create_time, update_time, tk_timer, permission, gid FROM user';
+  const tParams = { uid, username, gid, page, limit };
+  const finalKeys = [];
+  let searchSql = '';
+  Object.keys(tParams).forEach((key, index) => {
+    if (tParams[key] && key !== 'page' && key !== 'limit') {
+      finalKeys.push(key);        
+    }
+  })
+  finalKeys.forEach((key, index) => {
+    let finalParams = '';
+    if (tParams[key].indexOf(',') !== -1) {
+      const tps = tParams[key].split(',');
+      tps.forEach((item, i) => {
+        if (i === 0) finalParams = `'${item}'`;
+        else finalParams = `${finalParams},'${item}'`;
+      })
+    } else finalParams = `'${tParams[key]}'`;
+    if (index === 0) {
+      searchSql = ` WHERE ${key} in (${finalParams})`;
+    } else {
+      searchSql = `${searchSql} AND ${key} in (${finalParams})`;
+    }
+  })
+  sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
+  console.log(sql);
+  db.query(sql, '', (err, userList) => {
+    if (err) {
+      res.send({
+        'code': -1,
+        'msg': err.message
+      })
+      return;
+    }
+    const CountSql = `SELECT COUNT(*) AS total FROM user${searchSql}`;
+    db.query(CountSql, '', (errTotal, result) => {
+      if (errTotal) {
+        res.send({
+          'code': -1,
+          'msg': errTotal.message
+        })
+        return;
+      }
+      res.send({
+        code: 0,
+        data: {
+          userList,
+          current: page,
+          limit,
+          total: result[0].total || 0,
+        },
+        msg: '获取用户列表成功!',
+      })
+    })
+    
+  })
+})
 
 module.exports = router;

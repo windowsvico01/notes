@@ -4,6 +4,8 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { getAsyncInjectors } from '@/utils/asyncInjectors';
 import cancelSagaOnLocationChange from '@/utils/cancelSagaOnLocationChange';
 import queryString from 'query-string';
+import { SpinCon } from '@/components/Style';
+import { Spin } from 'antd';
 
 import hello from './Hello';
 import hi from './Hi';
@@ -74,7 +76,7 @@ const CRouter = (store) => {
             const Component = Loadable({
               loader: () => import(`../containers/Pages${finalPath}`),
               loading() {
-                return <div>加载中噢......</div>
+                return <SpinCon><Spin /></SpinCon>
               },
             }); 
             return (

@@ -1,33 +1,24 @@
-/*
- * HomeReducer
- *
- * The reducer takes care of our data. Using actions, we can
- * update our application state. To add a new action,
- * add it to the switch statement in the reducer function
- *
- */
-
 import produce from 'immer';
-// import { CHANGE_USERNAME } from './constants';
+import { GET_USERS_SUCCESS } from './actions';
 
-// The initial state of the App
 export const initialState = {
-  helloList: '',
+  userList: [],
+  total: 0,
+  current: 1,
 };
 
-/* eslint-disable default-case, no-param-reassign */
-// const homeReducer = (state = initialState, action) =>
-//   produce(state, draft => {
-//     switch (action.type) {
-//       case CHANGE_USERNAME:
-//         // Delete prefixed '@' from the github username
-//         draft.username = action.username.replace(/@/gi, '');
-//         break;
-//     }
-//   });
+const managerReducer = (state = initialState, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case GET_USERS_SUCCESS:
+        console.log(action);
+        draft.userList = action.data.userList;
+        draft.total = action.data.total;
+        draft.current = action.data.current;
+        break;
+      default:
+        return state;
+    }
+  });
 
-const listReducer = (state = initialState, action) => {
-  return state;
-};
-
-export default listReducer;
+export default managerReducer;

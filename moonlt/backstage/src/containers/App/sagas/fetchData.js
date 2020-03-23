@@ -44,7 +44,7 @@ export default function* fetchData({url, options, successMessage, loadIdentify =
     const errno = result.code !== undefined ? result.code : result.errno;
     const msg = result.msg || result.errmsg;
     if (errno !== 0) {
-      if ([-9].indexOf(errno) !== -1) {
+      if ([-10].indexOf(errno) !== -1) {
         yield put({ type: AUTHERROR, message: result.errmsg });
       } else {
         const error = new APIError(result);

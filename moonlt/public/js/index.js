@@ -31,9 +31,7 @@ var Index = /*#__PURE__*/function () {
       Api.post('/api/getUserInfo', {
         token: getCookie('token')
       }, function (res, err) {
-        console.log(res);
-        console.log(err);
-        if ([-1, -2].indexOf(res.code) !== -1) location.href = "".concat(Api.host, "/login.html");
+        if ([-1, -2, -9].indexOf(res.code) !== -1) location.href = "".concat(Api.host, "/login.html");
         if (res.code === 0) cb(res.data);
       });
     }

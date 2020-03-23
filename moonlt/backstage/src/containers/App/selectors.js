@@ -14,6 +14,10 @@ const selectMenus = createSelector(
   selectConfigDomain,
   (subState) => subState && subState.userData && subState.userData.menus,
 );
+const selectUserInfo = createSelector(
+  selectConfigDomain,
+  (subState) => subState && subState.userData && subState.userData.userInfo,
+);
 const selectShowLogin = createSelector(
   selectConfigDomain,
   (subState) => {
@@ -33,6 +37,7 @@ const selectDialog = createSelector(
 export {
   selectLocation,
   selectShowLogin,
+  selectUserInfo,
   selectLoading,
   selectDialog,
   selectMenus,

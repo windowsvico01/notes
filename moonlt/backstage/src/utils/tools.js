@@ -27,3 +27,12 @@ export const countNum = (str) => {
     } }
   return count;
 }
+/**
+ * @param str {string} 要分析的字符串
+ */
+export const isNumber = (str) => {
+  const regPos = /^\d+(\.\d+)?$/; //非负浮点数
+  const regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+  if (regPos.test(str) || regNeg.test(str)) return true;
+  else return false;
+}
