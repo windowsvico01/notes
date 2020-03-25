@@ -13,6 +13,8 @@ import home from './Home';
 import charts from './Charts';
 import plugins from './Plugins';
 import permission from './Permission';
+import manage from './Manage';
+import draft from './Draft';
 const modules = {
   menus: [
     home,
@@ -21,6 +23,8 @@ const modules = {
     hello,
     plugins,
     permission,
+    manage,
+    draft,
   ],
   others: []
 };
@@ -90,6 +94,7 @@ const CRouter = (store) => {
                   // 匹配?及其以后字符串
                   const queryParams = window.location.hash.match(reg);
                   // 去除?的参数
+                  console.log(props);
                   const { params } = props.match;
                   Object.keys(params).forEach(key => {
                       params[key] = params[key] && params[key].replace(reg, '');
@@ -104,7 +109,7 @@ const CRouter = (store) => {
                       </Switch>
                     </Component>
                   )
-                  return requireLogin(finalNode, routePath.substring(1))
+                  return requireLogin(finalNode, finalPath.substring(1))
 
                 }}
               />

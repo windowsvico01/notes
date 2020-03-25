@@ -13,8 +13,14 @@ const selectCurrent = createSelector(
   selectManagerDomain,
   (subState) => subState && subState.current,
 )
+const selectMenus = createSelector(
+  selectManagerDomain,
+  (subState) => subState && subState.menus,
+)
+
 export {
   selectUsers,
   selectTotal,
   selectCurrent,
+  selectMenus,
 }

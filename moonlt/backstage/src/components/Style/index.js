@@ -25,11 +25,11 @@ const FloatWrapper = styled.div`
 const Title = styled.div`
   width: 100%;
   overflow: hidden;
-  height: 20px;
+  height: 32px;
   margin-bottom: 15px;
   .borderLeft {
     width: 3px;
-    height: 20px;
+    height: 32px;
     background: #91d5ff;
     float: left;
   }
@@ -37,8 +37,11 @@ const Title = styled.div`
     font-size: 18px;
     float: left;
     margin: 0 0 0 10px;
-    height: 20px;
-    line-height: 20px;
+    height: 32px;
+    line-height: 32px;
+  }
+  .anticon{
+    vertical-align: inherit!important;
   }
 `;
 const FormOperate = styled.div`
@@ -58,4 +61,15 @@ const SpinCon = styled.div`
   margin-left: -50px;
   margin-top: -50px;
 `;
-export { Wrapper, FloatWrapper, Title, FormOperate, SpinCon }
+const LeftSide = styled.div`
+  margin-right: ${props => props.width || 300 }px;
+  overflow: hidden;
+`;
+const RightSide = styled.div`
+  float: right;
+  width: ${props => props.width || 270 }px;
+  .ant-row {
+    margin:0 10px 24px 0;
+  }
+`;
+export { Wrapper, FloatWrapper, Title, FormOperate, SpinCon, LeftSide, RightSide }

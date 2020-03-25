@@ -173,6 +173,8 @@ router.post('/updateMenu', urlencodedParser, (req, res, next) => {
  * @param {string} uid - nullable - '用户id ，分割'
  * @param {string} username - nullable - '用户名称 ，分割'
  * @param {string} gid - nullable - '分组id  ，分割'
+ * @param {string} page - nullable - '页码'
+ * @param {string} limit - nullable - '每页展示多少条'
  */
 router.post('/getUsers', urlencodedParser, (req, res) => {
   const { token, uid, username, gid, page = 1, limit = 20 } = req.body;
@@ -208,7 +210,6 @@ router.post('/getUsers', urlencodedParser, (req, res) => {
     }
   })
   sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
-  console.log(sql);
   db.query(sql, '', (err, userList) => {
     if (err) {
       res.send({
@@ -238,6 +239,59 @@ router.post('/getUsers', urlencodedParser, (req, res) => {
       })
     })
     
+  })
+})
+/**
+ * 编辑用户信息
+ * @param {string} uid - required - '用户id'
+ * @param {string} permission - nullable - '菜单权限'
+ * @param {string} username - nullable - '用户昵称'
+ * @param {string} head_image - nullable - '用户头像'
+ */
+router.post('/updateUser', urlencodedParser, (req, res, next) => {
+  const params = req.body;
+  if (!req.cookies.token && !params.token) {
+    res.send({
+      'code': -9,
+      'msg': '用户未登录',
+    });
+    return;
+  }
+  if (!params.uid) {
+    res.send({
+      'code': -1,
+      'msg': '缺少用户id',
+    });
+    return;
+  }
+  params.update_time = moment().format('YYYY-MM-DD HH:mm:ss');
+  const getUpdateSql = () => {
+    let tSql = 'UPDATE user SET';
+    const keys = Object.keys(params);
+    const tKeys = [];
+    keys.forEach((key) => {
+      if (['token', 'uid'].indexOf(key) === -1) tKeys.push(key);
+    })
+    tKeys.forEach((key, index) => {
+      tSql =  `${tSql} ${key}='${params[key]}'${index === (tKeys.length - 1) ? '' : ','}`;
+    })
+    tSql = `${tSql} WHERE uid=${params.uid}`;
+    return tSql;
+  }
+  
+  const updateSql = getUpdateSql();
+  db.query(updateSql, '', (err, result) => {
+    if (err) {
+      res.send({
+        'code': -1,
+        'msg': err.message
+      })
+      return;
+    }
+    res.send({
+      'code': 0,
+      'msg': '成功',
+    })
   })
 })
 

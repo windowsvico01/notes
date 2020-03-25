@@ -10,27 +10,20 @@ const multipart = require('connect-multiparty');
 
 const api = require('./api/index.js');
 const user = require('./api/user.js');
+const content = require('./api/content.js');
 const db = require('./api/db.js');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-// app.all('*', (req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//   res.header("X-Powered-By",' 3.2.1')
-//   res.header("Content-Type", "application/json;charset=utf-8");
-//   next();
-// });
 app.use(cors());
 app.use(cookieParser('123456'));
 app.use(urlencodedParser);
 app.use(multipart());
 app.use('/public', express.static('public'));
 app.use('/', express.static('public/page'));
-
 app.use(['/back', '/back/*'], express.static('backstage/build/index.html'));
 app.use('/static', express.static('backstage/build/static'));
 app.use('/api', api);
 app.use('/user', user);
+app.use('/content', content);
 // app.use((req, res) => {
 //   // 执行static没有找到对应的资源文件（404）
 //   res.status(404);

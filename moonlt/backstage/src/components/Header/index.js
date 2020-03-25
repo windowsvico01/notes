@@ -136,27 +136,24 @@ class Header extends React.PureComponent {
     }
     render() {
         const { userInfo } = this.props;
-        console.log(userInfo);
         return (
             <Bar>
-                <LogoCon><PandaIcon style={{ lineHeight: '40px', fontSize: '25px', display: 'inline-block', float: 'left', marginTop: '-3px', marginRight: '10px' }} /> MOONLT</LogoCon>
-                <LogCon>
-                    {(userInfo && userInfo.uid) ?  
-                    <Dropdown overlay={menu}>
-                      <div className="personInfo" href="#">
-                          {userInfo.head_image ? <Avatar size={38} src={userInfo.head_image}></Avatar> : <Avatar size={38}>{userInfo.username && userInfo.username.substring(0,1)}</Avatar>}
-                          
-                          <span className="userName">{userInfo.username}</span>
-                      </div>
-                    </Dropdown>
-                    :
-                    <div className="btnCon">
-                        <Button style={{marginRight:'20px'}} href="/login.html">登录</Button>
-                        <Button href="/register.html">注册</Button>
-                    </div>
-                    }
-                </LogCon>
-                
+              <LogoCon><PandaIcon style={{ lineHeight: '40px', fontSize: '25px', display: 'inline-block', float: 'left', marginTop: '-3px', marginRight: '10px' }} /> MOONLT</LogoCon>
+              <LogCon>
+                {(userInfo && userInfo.uid) ?  
+                <Dropdown overlay={menu}>
+                  <div className="personInfo" href="#">
+                      {userInfo.head_image ? <Avatar size={38} src={userInfo.head_image}></Avatar> : <Avatar size={38}>{userInfo.username && userInfo.username.substring(0,1)}</Avatar>}                       
+                      <span className="userName">{userInfo.username}</span>
+                  </div>
+                </Dropdown>
+                :
+                <div className="btnCon">
+                    <Button style={{marginRight:'20px'}} href="/login.html">登录</Button>
+                    <Button href="/register.html">注册</Button>
+                </div>
+                }
+              </LogCon>
             </Bar>
         );
     }
