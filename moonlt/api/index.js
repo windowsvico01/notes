@@ -95,7 +95,7 @@ router.post('/login', urlencodedParser, (req, res) => {
           });
           return;
         }
-        res.cookie('token', token, { domain: '127.0.0.1' });
+        res.cookie('token', token);
         res.send({
           'code': 0,
           'msg': '成功',
