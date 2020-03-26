@@ -343,7 +343,7 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
         categoryName.push(item.name);
       })
       if (plate) { // 选择板块
-        const searchPlateSql = `SELECT name, id FROM Plate WHERE id in (${plate})`;
+        const searchPlateSql = `SELECT name, id FROM plate WHERE id in (${plate})`;
         db.query(searchPlateSql, '', (errSearch, plateRes) => {
           if (errSearch) {
             res.send({

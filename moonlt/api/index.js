@@ -45,7 +45,8 @@ router.post('/register', urlencodedParser, (req, res, next) => {
       })
       return;
     }
-    res.cookie('token', token, { domain: ['127.0.0.1:3000', '127.0.0.1:3001'] });
+    res.cookie('token', token, { domain: '127.0.0.1' });
+    res.cookie('token', token, { domain: '62.234.73.102' });
     res.send({
       'code': 0,
       'msg': '成功',
@@ -95,7 +96,9 @@ router.post('/login', urlencodedParser, (req, res) => {
           });
           return;
         }
-        res.cookie('token', token);
+        res.cookie('token', token, { domain: '127.0.0.1' });
+        res.cookie('token', token, { domain: '62.234.73.102' });
+        console.log(token);
         res.send({
           'code': 0,
           'msg': '成功',
