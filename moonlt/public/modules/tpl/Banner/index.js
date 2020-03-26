@@ -35,7 +35,6 @@ var Banner = /*#__PURE__*/function () {
     value: function init(data) {
       var tHtml = (0, _index["default"])(data);
       this.config.dom.html(tHtml);
-      console.log(tHtml);
       this.afterInit();
     }
   }, {
@@ -66,7 +65,6 @@ var Banner = /*#__PURE__*/function () {
         // },
 
       });
-      console.log(mySwiper);
     }
   }]);
 

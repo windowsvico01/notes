@@ -139,12 +139,11 @@ class List extends Component {
     }; 
     return (
       <div>
-        <Title><div className="borderLeft"></div><h2>类目管理</h2></Title>
-        <FloatWrapper>
-          <Button className="f-r" type="primary" onClick={() => this.toggleModalVisible(true)}>
-            添加类目
-          </Button>
-        </FloatWrapper>
+        <Title>
+          <div className="borderLeft"></div>
+          <h2>类目管理</h2>
+          <Button type="primary" className="btn-r" onClick={() => this.toggleModalVisible(true)}>添加类目</Button>
+        </Title>
         <Wrapper>
           <Table columns={columns} size="middle" dataSource={category && !!category.length && transCategoryData(category)} pagination={false} rowKey="cid" />
         </Wrapper>

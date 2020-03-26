@@ -1,0 +1,183 @@
+.module-wrapper {
+  .infoFlow {
+    width: 100%;
+    height: auto;
+    .s-left {
+      float: left;
+    }
+    .s-right {
+      float: right;
+    }
+    ul {
+      list-style: none;
+      display: block;
+      margin: 0;
+      padding: 0;
+      li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+        a {
+          cursor: pointer;
+        }
+        .single-cover { // 单封面模板
+          height: 123px;
+          position: relative;
+          padding: 10px 0;
+          border-bottom: 1px solid #e8e8e8;
+          .single-cover-left {
+            width: 158px;
+            height: 102px;
+            margin-right: 16px;
+            position: relative;
+            .img-cover {
+              cursor: pointer;
+              width: 100%;
+              text-align: center;
+              border: 1px solid #e8e8e8;
+              background: #e8e8e8;
+              overflow: hidden;
+              transform-style: preserve-3d;
+              position:absolute;
+              top:50%;
+              left:50%;
+              transform: translate(-50%,-50%);
+              display: inline-block;
+              img {
+                display: inline-block;
+                max-width: 100%;
+                height: auto;
+                vertical-align: middle;
+                transition: all .5s ease-out .1s;
+              }
+              img:hover {
+                transform:scale(1.4);
+              }
+            }
+            .img-cover:before {
+              content: "";
+              width: 0;
+              font-size: 0;
+              visibility: hidden;
+              vertical-align: middle;
+            }
+          }
+          .single-cover-right {
+            height: 100%;
+            overflow: hidden;
+            .single-cover-right-inner {
+              display: inline-block;
+              width: 100%;
+              vertical-align: middle;
+              .title-box {
+                display: block;
+                font-size: 20px;
+                line-height: 1.3;
+                margin-bottom: 4px;
+                font-weight: 700;
+                max-height: 52px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                a:hover {
+                  color: #3c9af1
+                }
+              }
+              .footer-box {
+                font-size: 12px;
+                color: #999;
+                margin-top: 10px;
+                .footer-box-left {
+                  display: inline-block;
+                  vertical-align: middle;
+                  line-height: 20px;
+                  a {
+                    cursor: pointer;
+                  }
+                  .footer-box-action {
+                    font-size: 12px;
+                    color: #999;
+                    margin-right: 10px;
+                    padding: 1px 2px;
+                  }
+                  .tag {
+                    border: 1px solid #eee;
+                  }
+                  .c-tag {
+                    border-color: pink;
+                    color: pink;
+                  }
+                  .p-tag {
+                    border-color: green;
+                    color: green;
+                  }
+                }
+              }
+            }
+          }
+          .single-cover-right:before {
+            content: "";
+            width: 0;
+            font-size: 0;
+            height: auto;
+            visibility: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            box-sizing: border-box;
+          }
+        }
+        .no-cover {
+          position: relative;
+          padding: 10px 0;
+          border-bottom: 1px solid #e8e8e8;
+          .title-box {
+            display: block;
+            font-size: 20px;
+            line-height: 1.3;
+            margin-bottom: 4px;
+            font-weight: 700;
+            max-height: 52px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            a:hover {
+              color: #3c9af1
+            }
+          }
+          .footer-box {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+            overflow: hidden;
+            .footer-box-left {
+              display: inline-block;
+              vertical-align: middle;
+              line-height: 20px;
+              a {
+                cursor: pointer;
+              }
+              .footer-box-action {
+                font-size: 12px;
+                color: #999;
+                margin-right: 10px;
+                padding: 1px 2px;
+              }
+              .tag {
+                border: 1px solid #eee;
+              }
+              .c-tag {
+                border-color: pink;
+                color: pink;
+              }
+              .p-tag {
+                border-color: green;
+                color: green;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

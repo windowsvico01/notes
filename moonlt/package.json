@@ -37,6 +37,7 @@
     "connect-multiparty": "^2.2.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "jquery": "^3.4.1",
     "js-base64": "^2.5.2",
     "js-sha1": "^0.6.0",
     "moment": "^2.24.0",

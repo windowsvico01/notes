@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[44],{215:function(n,t,e){"use strict";e.r(t),e.d(t,"selectHi",function(){return r}),e.d(t,"selectCount",function(){return i});var u=e(51),c=function(n){return n.get("Hi")},r=Object(u.a)(c,function(n){return n&&n.hi}),i=Object(u.a)(c,function(n){return n&&n.count})}}]);
-//# sourceMappingURL=44.bf6cee85.chunk.js.map

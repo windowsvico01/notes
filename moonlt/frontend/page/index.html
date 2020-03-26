@@ -21,9 +21,18 @@
 <script src="/public/utils/sha1.min.js"></script>
 <script src="/public/modules/tpl.tpl.js"></script>
 <script>
-    $(function(){
-        window.Modules.render();
-    })
+  $(function(){
+    var page_data = [
+    { type: 'row', template: 'row-full', modules: [
+      [{ type: 'mod', template: 'Header' }]
+    ] },
+    { type: 'row', template: 'row-600-300', modules: [
+      [{ type: 'mod', template: 'Banner' }, { type: 'mod', template: 'InfoFlow' }], 
+      [{ type: 'mod', template: 'TextList' }]
+    ] },
+    ];
+    window.Modules.render({ pageData: page_data });
+  })
 </script>
 </body>
 </html>

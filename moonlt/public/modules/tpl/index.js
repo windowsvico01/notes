@@ -13,6 +13,8 @@ var _TextList = _interopRequireDefault(require("./TextList"));
 
 var _NoTpl = _interopRequireDefault(require("./NoTpl"));
 
+var _InfoFlow = _interopRequireDefault(require("./InfoFlow"));
+
 require("./common.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -21,7 +23,8 @@ var modules = {
   Header: _Header["default"],
   Banner: _Banner["default"],
   TextList: _TextList["default"],
-  NoTpl: _NoTpl["default"]
+  NoTpl: _NoTpl["default"],
+  InfoFlow: _InfoFlow["default"]
 };
 var _default = modules;
 exports["default"] = _default;

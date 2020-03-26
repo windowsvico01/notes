@@ -8,8 +8,8 @@ export default {
       path: 'list',
       route: 'list',
       label: '稿件列表',
-      hasReducer: false,
-      hasSagas: false,
+      hasReducer: true,
+      hasSagas: true,
     }, {
       path: 'add',
       route: 'add',

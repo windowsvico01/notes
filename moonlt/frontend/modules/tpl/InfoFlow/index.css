@@ -1,0 +1,147 @@
+.module-wrapper .infoFlow {
+  width: 100%;
+  height: auto; }
+  .module-wrapper .infoFlow .s-left {
+    float: left; }
+  .module-wrapper .infoFlow .s-right {
+    float: right; }
+  .module-wrapper .infoFlow ul {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0; }
+    .module-wrapper .infoFlow ul li {
+      display: list-item;
+      text-align: -webkit-match-parent; }
+      .module-wrapper .infoFlow ul li a {
+        cursor: pointer; }
+      .module-wrapper .infoFlow ul li .single-cover {
+        height: 123px;
+        position: relative;
+        padding: 10px 0;
+        border-bottom: 1px solid #e8e8e8; }
+        .module-wrapper .infoFlow ul li .single-cover .single-cover-left {
+          width: 158px;
+          height: 102px;
+          margin-right: 16px;
+          position: relative; }
+          .module-wrapper .infoFlow ul li .single-cover .single-cover-left .img-cover {
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #e8e8e8;
+            background: #e8e8e8;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: inline-block; }
+            .module-wrapper .infoFlow ul li .single-cover .single-cover-left .img-cover img {
+              display: inline-block;
+              max-width: 100%;
+              height: auto;
+              vertical-align: middle;
+              transition: all .5s ease-out .1s; }
+            .module-wrapper .infoFlow ul li .single-cover .single-cover-left .img-cover img:hover {
+              transform: scale(1.4); }
+          .module-wrapper .infoFlow ul li .single-cover .single-cover-left .img-cover:before {
+            content: "";
+            width: 0;
+            font-size: 0;
+            visibility: hidden;
+            vertical-align: middle; }
+        .module-wrapper .infoFlow ul li .single-cover .single-cover-right {
+          height: 100%;
+          overflow: hidden; }
+          .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner {
+            display: inline-block;
+            width: 100%;
+            vertical-align: middle; }
+            .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .title-box {
+              display: block;
+              font-size: 20px;
+              line-height: 1.3;
+              margin-bottom: 4px;
+              font-weight: 700;
+              max-height: 52px;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
+              text-overflow: ellipsis; }
+              .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .title-box a:hover {
+                color: #3c9af1; }
+            .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box {
+              font-size: 12px;
+              color: #999;
+              margin-top: 10px; }
+              .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 20px; }
+                .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left a {
+                  cursor: pointer; }
+                .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .footer-box-action {
+                  font-size: 12px;
+                  color: #999;
+                  margin-right: 10px;
+                  padding: 1px 2px; }
+                .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .tag {
+                  border: 1px solid #eee; }
+                .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .c-tag {
+                  border-color: pink;
+                  color: pink; }
+                .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .p-tag {
+                  border-color: green;
+                  color: green; }
+        .module-wrapper .infoFlow ul li .single-cover .single-cover-right:before {
+          content: "";
+          width: 0;
+          font-size: 0;
+          height: auto;
+          visibility: hidden;
+          display: inline-block;
+          vertical-align: middle;
+          box-sizing: border-box; }
+      .module-wrapper .infoFlow ul li .no-cover {
+        position: relative;
+        padding: 10px 0;
+        border-bottom: 1px solid #e8e8e8; }
+        .module-wrapper .infoFlow ul li .no-cover .title-box {
+          display: block;
+          font-size: 20px;
+          line-height: 1.3;
+          margin-bottom: 4px;
+          font-weight: 700;
+          max-height: 52px;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          text-overflow: ellipsis; }
+          .module-wrapper .infoFlow ul li .no-cover .title-box a:hover {
+            color: #3c9af1; }
+        .module-wrapper .infoFlow ul li .no-cover .footer-box {
+          font-size: 12px;
+          color: #999;
+          margin-top: 10px;
+          overflow: hidden; }
+          .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 20px; }
+            .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left a {
+              cursor: pointer; }
+            .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .footer-box-action {
+              font-size: 12px;
+              color: #999;
+              margin-right: 10px;
+              padding: 1px 2px; }
+            .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .tag {
+              border: 1px solid #eee; }
+            .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .c-tag {
+              border-color: pink;
+              color: pink; }
+            .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .p-tag {
+              border-color: green;
+              color: green; }

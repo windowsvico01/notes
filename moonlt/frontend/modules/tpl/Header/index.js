@@ -1,6 +1,5 @@
 import index from './index.art';
 import './index.css';
-console.log(index());
 class Header {
     constructor(dom) {
         this.config = {

@@ -27,6 +27,7 @@ const Title = styled.div`
   overflow: hidden;
   height: 32px;
   margin-bottom: 15px;
+  padding-right: 24px;
   .borderLeft {
     width: 3px;
     height: 32px;
@@ -42,6 +43,9 @@ const Title = styled.div`
   }
   .anticon{
     vertical-align: inherit!important;
+  }
+  .btn-r {
+    float: right;
   }
 `;
 const FormOperate = styled.div`

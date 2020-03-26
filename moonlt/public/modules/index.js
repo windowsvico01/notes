@@ -13,7 +13,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var RenderModules = /*#__PURE__*/function () {
-  function RenderModules() {
+  function RenderModules(props) {
     _classCallCheck(this, RenderModules);
 
     this.config = {
@@ -31,46 +31,9 @@ var RenderModules = /*#__PURE__*/function () {
         modules: [[{
           type: 'mod',
           template: 'Banner'
-        }], [{
+        }, {
           type: 'mod',
-          template: 'TextList'
-        }]]
-      }, {
-        type: 'row',
-        template: 'row-600-300',
-        modules: [[{
-          type: 'mod',
-          template: 'Banner'
-        }], [{
-          type: 'mod',
-          template: 'TextList'
-        }]]
-      }, {
-        type: 'row',
-        template: 'row-600-300',
-        modules: [[{
-          type: 'mod',
-          template: 'Banner'
-        }], [{
-          type: 'mod',
-          template: 'TextList'
-        }]]
-      }, {
-        type: 'row',
-        template: 'row-600-300',
-        modules: [[{
-          type: 'mod',
-          template: 'Banner'
-        }], [{
-          type: 'mod',
-          template: 'TextList'
-        }]]
-      }, {
-        type: 'row',
-        template: 'row-600-300',
-        modules: [[{
-          type: 'mod',
-          template: 'Banner'
+          template: 'InfoFlow'
         }], [{
           type: 'mod',
           template: 'TextList'
@@ -81,13 +44,15 @@ var RenderModules = /*#__PURE__*/function () {
 
   _createClass(RenderModules, [{
     key: "render",
-    value: function render() {
+    value: function render(props) {
+      this.config.pageData = props.pageData;
       this.renderRow();
     }
   }, {
     key: "renderRow",
     value: function renderRow() {
       var tHtml = '';
+      console.log(this.config);
       this.config.pageData.forEach(function (item) {
         tHtml += (0, _row["default"])(item);
       });

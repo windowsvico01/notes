@@ -11,7 +11,6 @@ class Banner {
     init(data) {
        const tHtml = index(data);
        this.config.dom.html(tHtml);
-       console.log(tHtml);
        this.afterInit();
     }
     afterInit() {
@@ -39,7 +38,6 @@ class Banner {
             //   el: '.swiper-scrollbar',
             // },
           })
-        console.log(mySwiper);
     }
 }
 export default Banner;

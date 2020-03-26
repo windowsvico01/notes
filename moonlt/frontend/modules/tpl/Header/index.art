@@ -1,7 +1,7 @@
 <div class="header">
-  <div class="logo">logo</div>
+  <div class="logo">MOONLT</div>
   <ul class="nav">
-    <li><a href="/">首页1</a></li>
+    <li><a href="/">首页</a></li>
     <li><a href="/chat.html">聊天</a></li>
   </ul>
   <div class="user">

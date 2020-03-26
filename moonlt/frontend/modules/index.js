@@ -1,7 +1,7 @@
 import modules from './tpl';
 import row from './tpl/row.art';
 class RenderModules {
-  constructor() {
+  constructor(props) {
     this.config = {
       modules,
       pageData:[
@@ -9,33 +9,19 @@ class RenderModules {
           [{ type: 'mod', template: 'Header' }]
         ] },
         { type: 'row', template: 'row-600-300', modules: [
-          [{ type: 'mod', template: 'Banner' }], 
-          [{ type: 'mod', template: 'TextList' }]
-        ] },
-        { type: 'row', template: 'row-600-300', modules: [
-          [{ type: 'mod', template: 'Banner' }], 
-          [{ type: 'mod', template: 'TextList' }]
-        ] },
-        { type: 'row', template: 'row-600-300', modules: [
-          [{ type: 'mod', template: 'Banner' }], 
-          [{ type: 'mod', template: 'TextList' }]
-        ] },
-        { type: 'row', template: 'row-600-300', modules: [
-          [{ type: 'mod', template: 'Banner' }], 
-          [{ type: 'mod', template: 'TextList' }]
-        ] },
-        { type: 'row', template: 'row-600-300', modules: [
-          [{ type: 'mod', template: 'Banner' }], 
+          [{ type: 'mod', template: 'Banner' }, { type: 'mod', template: 'InfoFlow' }], 
           [{ type: 'mod', template: 'TextList' }]
         ] },
       ]
     }
   }
-  render() {
+  render(props) {
+    this.config.pageData = props.pageData;
     this.renderRow();
   }
   renderRow() {
     let tHtml = '';
+    console.log(this.config);
     this.config.pageData.forEach((item) => {
       tHtml += row(item);
     })

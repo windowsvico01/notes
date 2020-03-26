@@ -153,12 +153,11 @@ class Menu extends Component {
     }; 
     return (
       <div>
-        <Title><div className="borderLeft"></div><h2>菜单管理</h2></Title>
-        <FloatWrapper>
-          <Button className="f-r" type="primary" onClick={() => this.toggleModalVisible(true)}>
-            添加菜单
-          </Button>
-        </FloatWrapper>
+        <Title>
+          <div className="borderLeft"></div>
+          <h2>菜单管理</h2>
+          <Button type="primary" className="btn-r" onClick={() => this.toggleModalVisible(true)}>添加菜单</Button>
+        </Title>
         <Wrapper>
           <Table columns={columns} size="middle" dataSource={menus && !!menus.length && transMenuData(menus)} rowKey="route" />
         </Wrapper>

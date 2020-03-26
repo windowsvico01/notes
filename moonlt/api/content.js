@@ -1,6 +1,5 @@
 const Express = require('express');
 const router =  Express.Router();
-// const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -330,7 +329,6 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
     }
     const authorName = user[0].username;
     const authorUid = user[0].uid;
-    console.log(authorName);
     const searchCidSql = `SELECT name, cid FROM category WHERE cid='${cid}'`;
     db.query(searchCidSql, '', (errSearch, category) => {
       if (errSearch) {
@@ -344,22 +342,39 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
       category && category.length && category.forEach((item) => {
         categoryName.push(item.name);
       })
-      console.log(categoryName);
-      const searchPlateSql = `SELECT name, id FROM Plate WHERE id in (${plate})`;
-      db.query(searchPlateSql, '', (errSearch, plateRes) => {
-        if (errSearch) {
-          res.send({
-            'code': -1,
-            'msg': errSearch.message
+      if (plate) { // 选择板块
+        const searchPlateSql = `SELECT name, id FROM Plate WHERE id in (${plate})`;
+        db.query(searchPlateSql, '', (errSearch, plateRes) => {
+          if (errSearch) {
+            res.send({
+              'code': -1,
+              'msg': errSearch.message
+            })
+            return;
+          }
+          const plateName = [];
+          plateRes && plateRes.length && plateRes.forEach((item) => {
+            plateName.push(item.name);
           })
-          return;
-        }
-        const plateName = [];
-        plateRes && plateRes.length && plateRes.forEach((item) => {
-          plateName.push(item.name);
+          const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, create_time) VALUES(0,?,?,?,?,?,?,?,?,?,?,?)';
+          const addSqlParams = [type, cid, categoryName.join(','), plate, plateName.join(','), authorUid, authorName, title, summary, content, moment().format('YYYY-MM-DD HH:mm:ss')];
+          db.query(addSql, addSqlParams, (err, result) => {
+            if (err) {
+              res.send({
+                'code': -1,
+                'msg': err.message
+              })
+              return;
+            }
+            res.send({
+              'code': 0,
+              'msg': '成功',
+            })
+          })
         })
+      } else { // 没选板块
         const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, create_time) VALUES(0,?,?,?,?,?,?,?,?,?,?,?)';
-        const addSqlParams = [type, cid, categoryName.join(','), plate, plateName.join(','), authorUid, authorName, title, summary, content, moment().format('YYYY-MM-DD HH:mm:ss')];
+        const addSqlParams = [type, cid, categoryName.join(','), '', '', authorUid, authorName, title, summary, content, moment().format('YYYY-MM-DD HH:mm:ss')];
         db.query(addSql, addSqlParams, (err, result) => {
           if (err) {
             res.send({
@@ -373,22 +388,75 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
             'msg': '成功',
           })
         })
-      })
+      }
     })
   })
-  
-  // 查询cid
-  // const searchSql = `SELECT cid, name FROM category WHERE cid='${params.cid}'`;
-  // db.query(searchSql, '', (errSearch, result) => {
-  //   if (errSearch) {
-  //     res.send({
-  //       'code': -1,
-  //       'msg': errSearch.message
-  //     })
-  //     return;
-  //   }
-  //   const c_name = result[0].name;
+})
+/**
+ * 获取新闻列表
+ * @param {string} title - nullable - '文章标题' - null全部
+ * @param {string} cid - nullable - '板块所属类目id' - null全部
+ * @param {string} plate - nullable - '所属板块' - null全部
+ * @param {string} author_name - nullable - '作者名字' - null全部
+ * @param {string} page - nullable - '页码'
+ * @param {string} limit - nullable - '每页展示多少条'
+ */
+router.post('/getDraftList', urlencodedParser, (req, res) => {
+  const { title, cid, plate, author_name, page = 1, limit = 20 } = req.body;
+  let sql = 'SELECT article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article';
+  const tParams = { title, cid, plate, author_name, page, limit };
+  const finalKeys = [];
+  let searchSql = '';
+  Object.keys(tParams).forEach((key, index) => {
+    if (tParams[key] && key !== 'page' && key !== 'limit') {
+      finalKeys.push(key);        
+    }
+  })
+  finalKeys.forEach((key, index) => {
+    let finalParams = '';
+    if (tParams[key].indexOf(',') !== -1) {
+      const tps = tParams[key].split(',');
+      tps.forEach((item, i) => {
+        if (i === 0) finalParams = `'${item}'`;
+        else finalParams = `${finalParams},'${item}'`;
+      })
+    } else finalParams = `'${tParams[key]}'`;
+    if (index === 0) {
+      searchSql = ` WHERE ${key} in (${finalParams})`;
+    } else {
+      searchSql = `${searchSql} AND ${key} in (${finalParams})`;
+    }
+  })
+  sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
+  db.query(sql, '', (err, articleList) => {
+    if (err) {
+      res.send({
+        'code': -1,
+        'msg': err.message
+      })
+      return;
+    }
+    const CountSql = `SELECT COUNT(*) AS total FROM article${searchSql}`;
+    db.query(CountSql, '', (errTotal, result) => {
+      if (errTotal) {
+        res.send({
+          'code': -1,
+          'msg': errTotal.message
+        })
+        return;
+      }
+      res.send({
+        code: 0,
+        data: {
+          data: articleList,
+          current: page,
+          limit,
+          total: result[0].total || 0,
+        },
+        msg: '获取文章列表成功!',
+      })
+    })
     
-  // })
+  })
 })
 module.exports = router;
