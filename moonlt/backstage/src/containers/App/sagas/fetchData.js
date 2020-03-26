@@ -31,7 +31,7 @@ const getCookie = (name) => {
  */
 export default function* fetchData({url, options, successMessage, loadIdentify = 'global', mapResult, hideSpinning}) {
   let data;
-  const finalURL = `http://127.0.0.1:3000${url}`;
+  const finalURL = `http://62.234.73.102:3000${url}`;
   try {
     yield put(loading(loadIdentify));
     if (typeof indicator !== 'function' && !hideSpinning) {
