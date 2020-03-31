@@ -16,8 +16,6 @@ class api {
     this.host = '';
   }
   get(url, cb) {
-    console.log(`${this.host}${url}`);
-    console.log($);
     $.get(`${this.host}${url}`, (res,err) => {
       console.log(res);
       return cb && cb(res, err);

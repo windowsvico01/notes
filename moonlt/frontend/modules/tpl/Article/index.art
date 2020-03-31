@@ -1,0 +1,20 @@
+<div class="article">
+  <div class="article-box">
+    <div class="title-box">
+      <h2>{{title}}</h2>
+    </div>
+    <div class="sub-box">
+      <span class="tag category">{{category_name}}</span>
+      {{set plates = plate_name ? plate_name.split(',') : [] }}
+      {{each plates}}
+        <span class="tag plate">{{$value}}</span>
+      {{/each}}
+      <span>{{author_name}}</span>
+      <span>{{create_time}}</span>
+    </div>
+    {{if summary}}
+      <div class="summary-box">{{summary}}</div>
+    {{/if}}
+    <div class="content-box">{{#content}}</div>
+  </div>
+</div>

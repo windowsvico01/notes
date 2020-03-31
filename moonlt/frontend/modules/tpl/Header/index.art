@@ -5,8 +5,8 @@
     <li><a href="/chat.html">聊天</a></li>
   </ul>
   <div class="user">
-    {{if isLogin}}
-      <div>{{userInfo.name}}</div>
+    {{if userInfo}}
+      <div class="user-name">{{userInfo.username}}</div>
     {{else}}
       <div class="buttons">
         <a type="button" class="btn btn-warning" href="/login.html">登录</a>

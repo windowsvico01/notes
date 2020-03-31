@@ -31,8 +31,6 @@ var api = /*#__PURE__*/function () {
   _createClass(api, [{
     key: "get",
     value: function get(url, cb) {
-      console.log("".concat(this.host).concat(url));
-      console.log($);
       $.get("".concat(this.host).concat(url), function (res, err) {
         console.log(res);
         return cb && cb(res, err);

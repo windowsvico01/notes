@@ -4,7 +4,18 @@
     {{each modules}}
       <div class="col-{{col[$index]}}">
         {{each $value}}
-          <div class="module-wrapper {{$value.template}}" template-type="{{$value.template}}"></div>
+          {{if $value.type === 'infoFlow'}}
+            <div
+              class="module-wrapper {{$value.template}}"
+              template-type="{{$value.template}}"
+              show-tab="{{$value.tab}}"
+              show-nav="{{$value.nav}}"
+            >
+            </div>
+          {{else}}
+            <div class="module-wrapper {{$value.template}}" template-type="{{$value.template}}"></div>
+          {{/if}}
+          
         {{/each}}
       </div>
     {{/each}}

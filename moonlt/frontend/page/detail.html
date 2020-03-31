@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>MOONLT</title>
+    <title>详情页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/public/utils/bootstrap/css/bootstrap.min.css">
 </head>
@@ -19,6 +19,7 @@
 <script src="/public/utils//popper.min.js"></script>
 <script src="/public/utils/bootstrap/js/bootstrap.min.js"></script>
 <script src="/public/utils/sha1.min.js"></script>
+<script src="/public/js/tools/common.js"></script>
 <script src="/public/modules/tpl.tpl.js"></script>
 <script>
   $(function(){
@@ -27,17 +28,14 @@
       [{ type: 'mod', template: 'Header' }]
     ] },
     { type: 'row', template: 'row-600-300', modules: [
-      [{ type: 'mod', template: 'Banner' }, { type: 'mod', template: 'InfoFlow', tab: '1', nav: '1' }], 
+      [{ type: 'mod', template: 'Article' }], 
       [{ type: 'mod', template: 'TextList' }]
     ] },
     ];
-    // var locationData = {
-    //   console.log(location)
-    // }
-    console.log(location)
+    console.log(location.pathname);
     var pathData = location.pathname.split('/');
     var lt = {
-      category: pathData[2] || '',
+      articleId: pathData[2] || ''
     }
     window.Modules.render({ pageData: page_data, lt });
   })

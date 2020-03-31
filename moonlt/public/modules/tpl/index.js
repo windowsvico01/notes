@@ -15,6 +15,8 @@ var _NoTpl = _interopRequireDefault(require("./NoTpl"));
 
 var _InfoFlow = _interopRequireDefault(require("./InfoFlow"));
 
+var _Article = _interopRequireDefault(require("./Article"));
+
 require("./common.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -24,7 +26,8 @@ var modules = {
   Banner: _Banner["default"],
   TextList: _TextList["default"],
   NoTpl: _NoTpl["default"],
-  InfoFlow: _InfoFlow["default"]
+  InfoFlow: _InfoFlow["default"],
+  Article: _Article["default"]
 };
 var _default = modules;
 exports["default"] = _default;

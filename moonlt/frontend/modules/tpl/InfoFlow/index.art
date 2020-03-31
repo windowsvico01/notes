@@ -1,12 +1,32 @@
 <div class="infoFlow">
+  <div class="nav-box">
+    <ul>
+      <li class="{{isHome ? 'active' : ''}}"><a href="/">推荐</a></li>
+      {{each rootCategory.category as rootCate}}
+        <li class="{{rootKey === rootCate.path_key ? 'active' : ''}}"><a href="/ca/{{rootCate.path_key}}">{{rootCate.name}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
   <ul>
+      {{if !isHome}}
+        <li>
+          <div class="s-box tab-box">
+            <a class="tab-item s-left {{isRoot ? 'active' : ''}}" href="/ca/{{rootKey}}">全部</a>
+            {{if category && !!category.length}}
+              {{each category as ca}}
+                <a class="tab-item s-left {{(ca.cid === activeCid && !isHome) ? 'active' : ''}}" href="/ca/{{ca.path_key}}">{{ca.name}}</a>
+              {{/each}}
+            {{/if}}
+          </div>
+        </li>
+      {{/if}}
     {{each list as article}} 
       <li>
-        {{set covers = article.cover ? article.cover.split(',') : [] }}
+        {{set covers = article.cover ? article.cover.split('|') : [] }}
         {{if covers.length === 0 }}
           <div class="s-box no-cover">
             <div class="title-box">
-              <a>{{article.title}}</a>
+              <a href="/detail/{{article.article_id}}" target="_blank">{{article.title}}</a>
             </div>
             <div class="footer-box">
               <div class="s-left footer-box-left">
@@ -29,14 +49,14 @@
         {{else if covers.length === 1}}
           <div class="s-box single-cover">
             <div class="s-left single-cover-left">
-              <a class="img-cover">
-                <img src="{{cover[0]}}" />
+              <a class="img-cover" href="/detail/{{article.article_id}}" target="_blank">
+                <img src="{{covers[0]}}" />
               </a>
             </div>
             <div class="single-cover-right">
               <div class="single-cover-right-inner">
                 <div class="title-box">
-                  <a>{{article.title}}</a>
+                  <a href="/detail/{{article.article_id}}" target="_blank">{{article.title}}</a>
                 </div>
                 <div class="footer-box">
                   <div class="s-left footer-box-left">
@@ -62,22 +82,5 @@
         {{/if}}
       </li>
     {{/each}}
-    <li>
-      <div class="s-box no-cover">
-        <div class="title-box">
-          <a>这是一条新闻新闻新闻新闻</a>
-        </div>
-        <div class="footer-box">
-          <div class="s-left footer-box-left">
-            <a class="footer-box-action tag c-tag">科技</a>
-            <a class="footer-box-action tag p-tag">前端</a>
-            <a class="footer-box-action tag p-tag">后端</a>
-            <a class="footer-box-action author-name">皮皮虾</a>
-            <span class="footer-box-action">2020-03-20</span>
-          </div>
-          <div class="s-right"></div>
-        </div>
-      </div>
-    </li>
   </ul>
 </div>

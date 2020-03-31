@@ -38,7 +38,9 @@ var RenderModules = /*#__PURE__*/function () {
           type: 'mod',
           template: 'TextList'
         }]]
-      }]
+      }],
+      lt: {} // location信息
+
     };
   }
 
@@ -46,13 +48,13 @@ var RenderModules = /*#__PURE__*/function () {
     key: "render",
     value: function render(props) {
       this.config.pageData = props.pageData;
+      this.config.lt = props.lt;
       this.renderRow();
     }
   }, {
     key: "renderRow",
     value: function renderRow() {
       var tHtml = '';
-      console.log(this.config);
       this.config.pageData.forEach(function (item) {
         tHtml += (0, _row["default"])(item);
       });
@@ -69,7 +71,11 @@ var RenderModules = /*#__PURE__*/function () {
       moduleWrapper.length && moduleWrapper.each(function (index, item) {
         var templateType = $(item).attr('template-type') || 'no-template';
         var template = _this.config.modules[templateType] ? new _this.config.modules[templateType]($(item)) : new _this.config.modules['NoTpl']($(item));
-        template.init();
+        var params = {
+          category: _this.config.lt.category || '',
+          articleId: _this.config.lt.articleId || ''
+        };
+        template.init(params);
       });
     }
   }]);

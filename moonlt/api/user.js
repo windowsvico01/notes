@@ -6,6 +6,13 @@ const moment = require('moment');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const db = require('./db');
 const sha1 = require('js-sha1');
+const STS = require('qcloud-cos-sts');
+const COS = require('cos-nodejs-sdk-v5');
+const fs = require('fs');
+const cos = new COS({
+  SecretId: 'AKIDmLgaKpU7zbx40joPO7bprgGadS2MEFsH',
+  SecretKey: 'JfngJgnRr0tYx85olZCZjuqVyCBuN7du'
+});
 // const Base64 = require('js-base64').Base64;
 /**
  * 获取菜单列表
@@ -294,5 +301,101 @@ router.post('/updateUser', urlencodedParser, (req, res, next) => {
     })
   })
 })
+/**
+ * 获取临时秘钥
+ * @param {string} uid - required - '用户id'
+ * @param {string} permission - nullable - '菜单权限'
+ * @param {string} username - nullable - '用户昵称'
+ * @param {string} head_image - nullable - '用户头像'
+ */
+// 配置参数
+const config = {
+  secretId: 'AKIDmLgaKpU7zbx40joPO7bprgGadS2MEFsH',
+  secretKey: 'JfngJgnRr0tYx85olZCZjuqVyCBuN7du',
+  proxy: process.env.Proxy,
+  durationSeconds: 1800,
+  bucket: 'moonlt-1301529976',
+  region: 'ap-beijing',
+  allowPrefix: 'MOONLT/*',
+  // 密钥的权限列表
+  allowActions: [
+      // 所有 action 请看文档 https://cloud.tencent.com/document/product/436/31923
+      // 简单上传
+      'name/cos:PutObject',
+      'name/cos:PostObject',
+      // 分片上传
+      'name/cos:InitiateMultipartUpload',
+      'name/cos:ListMultipartUploads',
+      'name/cos:ListParts',
+      'name/cos:UploadPart',
+      'name/cos:CompleteMultipartUpload'
+  ],
+};
+router.post('/sts', function (req, res, next) {
 
+  // TODO 这里根据自己业务需要做好放行判断
+  // if (config.allowPrefix === 'MOONLT/*') {
+  //     res.send({error: '请修改 allowPrefix 配置项，指定允许上传的路径前缀'});
+  //     return;
+  // }
+  if (!req.cookies.token && !params.token) {
+    res.send({
+      'code': -9,
+      'msg': '用户未登录',
+    });
+    return;
+  }
+  // 获取临时密钥
+  var LongBucketName = config.bucket;
+  var ShortBucketName = LongBucketName.substr(0, LongBucketName.lastIndexOf('-'));
+  var AppId = LongBucketName.substr(LongBucketName.lastIndexOf('-') + 1);
+  var policy = {
+      'version': '2.0',
+      'statement': [{
+          'action': config.allowActions,
+          'effect': 'allow',
+          'resource': [
+              'qcs::cos:' + config.region + ':uid/' + AppId + ':prefix//' + AppId + '/' + ShortBucketName + '/' + config.allowPrefix,
+          ],
+      }],
+  };
+  var startTime = Math.round(Date.now() / 1000);
+  STS.getCredential({
+      secretId: config.secretId,
+      secretKey: config.secretKey,
+      proxy: config.proxy,
+      region: config.region,
+      durationSeconds: config.durationSeconds,
+      policy: policy,
+  }, function (err, tempKeys) {
+      if (tempKeys) tempKeys.startTime = startTime;
+      res.send(err || tempKeys);
+  });
+});
+/**
+ * 获取临时秘钥
+ * @param {string} file 上传文件
+ */
+router.post('/fileUpload', (req, res) => {
+  console.log(req.files)
+  cos.putObject({
+    Bucket: 'moonlt-1301529976', /* 必须 */
+    Region: 'ap-beijing',    /* 必须 */
+    Key: req.files.cover.originalFilename,              /* 必须 */
+    StorageClass: 'STANDARD',
+    Body: fs.createReadStream(req.files.cover.path), // 上传文件对象
+    onProgress: function(progressData) {
+        console.log(JSON.stringify(progressData));
+    }
+}, function(err, data) {
+    console.log(err || data);
+    if (!err) {
+      res.send({
+        'code': '0',
+        'location': data.Location,
+      });
+    }
+
+});
+})
 module.exports = router;

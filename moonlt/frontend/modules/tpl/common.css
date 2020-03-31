@@ -1,7 +1,9 @@
+@charset "UTF-8";
 .row {
   width: 100%;
   height: auto;
-  margin: 0 auto 10px; }
+  margin: 0 auto 10px;
+  position: relative; }
   .row .module-wrapper {
     margin-bottom: 10px; }
 
@@ -22,8 +24,7 @@
 
 .row-600-300 {
   width: 920px;
-  margin: 10px auto;
-  overflow: hidden; }
+  margin: 10px auto; }
   .row-600-300 .col-600 {
     width: 600px;
     height: auto;
@@ -33,3 +34,27 @@
     height: auto;
     float: left;
     margin-left: 20px; }
+
+.row-800-300 {
+  width: 1120px;
+  margin: 10px auto; }
+  .row-800-300 .col-800 {
+    width: 800px;
+    height: auto;
+    float: left; }
+  .row-800-300 .col-300 {
+    width: 300px;
+    height: auto;
+    float: left;
+    margin-left: 20px; }
+
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+.clearfix {
+  /* 触发 hasLayout */
+  zoom: 1; }

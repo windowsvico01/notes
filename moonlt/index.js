@@ -40,14 +40,20 @@ const io = require('socket.io')({
   serveClient: true,
 });
 const isValid = (token) => {
-   const tokens = ['vico', 'vico001', '123333'];
-   if (tokens.indexOf(token) !== -1) return true;
-   else return false;
+  const tokens = ['vico', 'vico001', '123333'];
+  if (tokens.indexOf(token) !== -1) return true;
+  else return false;
 }
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/page/index.html');
     // res.sendFile(__dirname + '/backstage/build/index.html');
+});
+app.get('/ca/*',  function(req, res) {
+  res.sendFile(__dirname + '/public/page/index.html');
+});
+app.get('/detail/*',  function(req, res) {
+  res.sendFile(__dirname + '/public/page/detail.html');
 });
 app.get('/back/*', function(req, res) {
   res.sendFile(__dirname + '/backstage/build/index.html');

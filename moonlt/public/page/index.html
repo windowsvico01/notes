@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>List</title>
+    <title>MOONLT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/public/utils/bootstrap/css/bootstrap.min.css">
 </head>
@@ -27,11 +27,19 @@
       [{ type: 'mod', template: 'Header' }]
     ] },
     { type: 'row', template: 'row-600-300', modules: [
-      [{ type: 'mod', template: 'Banner' }, { type: 'mod', template: 'InfoFlow' }], 
+      [{ type: 'mod', template: 'Banner' }, { type: 'mod', template: 'InfoFlow', tab: '1', nav: '1' }], 
       [{ type: 'mod', template: 'TextList' }]
     ] },
     ];
-    window.Modules.render({ pageData: page_data });
+    // var locationData = {
+    //   console.log(location)
+    // }
+    console.log(location)
+    var pathData = location.pathname.split('/');
+    var lt = {
+      category: pathData[2] || '',
+    }
+    window.Modules.render({ pageData: page_data, lt });
   })
 </script>
 </body>
