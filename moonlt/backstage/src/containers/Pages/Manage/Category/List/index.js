@@ -127,9 +127,9 @@ class List extends Component {
       key: 'operate',
       render: (t, record) => (
         <FormOperate>
-          <Button type="link" onClick={() => this.handleAddChildCategory(record.cid)}>添加子类目</Button>
           <Button type="link" onClick={() => this.handleEditCategory(record)}>编辑</Button>
           <Link to={`/manage/category/detail/${record.cid}`} style={{ padding: '4px 15px' }}>详情</Link>
+          { record.pid * 1 === 0 && <Button type="link" onClick={() => this.handleAddChildCategory(record.cid)}>添加子类目</Button>}
         </FormOperate>
       )
     }];
@@ -171,6 +171,14 @@ class List extends Component {
               rules={[{ required: true, message: '请输入类目名称' }]}
             >
               <Input addonAfter={<div style={{ width: '50px' }}>{countNum(label)}个字</div>} />
+            </Form.Item>
+            <Form.Item
+              {...layout}
+              label="key"
+              name="path_key"
+              rules={[{ required: true, message: '请输入唯一key值' }]}
+            >
+              <Input />
             </Form.Item>
             <Form.Item
               {...layout}

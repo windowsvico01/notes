@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Table, Button, Modal, Form, Input, Tabs, Row, Col, Radio, TreeSelect, Select } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
+import { Table, Button, Modal, Form, Input, Tabs, Row, Col, Radio, TreeSelect, Select, Upload, message } from 'antd';
+import { LeftOutlined, UploadOutlined } from '@ant-design/icons';
 import { Title, Wrapper, RightSide, LeftSide } from '@/components/Style';
 import styled from 'styled-components';
 import * as actions from './actions';
@@ -102,6 +102,23 @@ class Add extends Component {
       <Button> 保存草稿 </Button>
       <Button type="primary" onClick={this.handlePublish}> 发布 </Button>
       </ButtonCon>;
+    const uploadProps = {
+      name: 'cover',
+      action: 'http://127.0.0.1:3000/user/fileUpload',
+      // headers: {
+      //   authorization: 'authorization-text',
+      // },
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    }
     return (
       <div>
         <Title><Button style={{ float: 'left' }} icon={<LeftOutlined />} onClick={() => this.props.history.goBack()} /><h2>添加稿件</h2></Title>
@@ -167,7 +184,18 @@ class Add extends Component {
                     <WangEditor
                       defaultValue={''}
                     />
-                  </Form.Item> 
+                  </Form.Item>
+                  <Form.Item
+                    {...layout}
+                    label="封面"
+                    name="cover"
+                  >
+                    <Upload {...uploadProps}>
+                      <Button>
+                        <UploadOutlined /> Click to Upload
+                      </Button>
+                    </Upload>
+                  </Form.Item>  
                 </LeftSide>
               </Form> 
             </TabPane>

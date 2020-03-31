@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[59],{247:function(t,n,e){"use strict";e.r(n),e.d(n,"selectCategoryList",function(){return o}),e.d(n,"selectPlateList",function(){return i}),e.d(n,"selectFields",function(){return u});var r=e(50),c=function(t){return t.get("Draft/Add")},i=Object(r.a)(c,function(t){return t&&t.plateList}),u=Object(r.a)(c,function(t){return t&&t.fields}),o=Object(r.a)(c,function(t){return t&&t.categoryList})}}]);
-//# sourceMappingURL=59.ed735a25.chunk.js.map

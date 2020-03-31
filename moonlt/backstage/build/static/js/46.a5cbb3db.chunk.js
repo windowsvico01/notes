@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[46,76],{174:function(n,t,e){"use strict";e.r(t),e.d(t,"initialState",function(){return o});var c=e(146),i=e(245),o={content:""};t.default=function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:o,t=arguments.length>1?arguments[1]:void 0;return Object(c.a)(n,function(n){switch(t.type){case i.CONTENT_CHANGE:n.content=t.content}})}},245:function(n,t){}}]);
-//# sourceMappingURL=46.a5cbb3db.chunk.js.map
