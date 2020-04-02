@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Table, Button, Modal, Form, Input, Tabs, Row, Col, Radio, TreeSelect, Select, Upload, message } from 'antd';
-import { LeftOutlined, UploadOutlined } from '@ant-design/icons';
+import { LeftOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { Title, Wrapper, RightSide, LeftSide } from '@/components/Style';
 import styled from 'styled-components';
 import * as actions from './actions';
@@ -54,6 +54,7 @@ class Add extends Component {
     super(props);
     this.state = {
       formRef: React.createRef(),
+      publishing: false,
     };
   }
   componentWillMount() {
@@ -77,15 +78,38 @@ class Add extends Component {
     })
   }
   handlePublish = () => {
-    this.state.formRef.current.validateFields().then(values => {
-      const params = {};
-      Object.keys(values).forEach((key) => {
-        if (key === 'plate') params.plate = values.plate.join(',');
-        else params[key] = values[key];
+    const { publishing } = this.state;
+    if (!publishing) {
+      const _this = this;
+      this.setState({
+        publishing: true
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            publishing: false,
+          })
+        }, 1000);
+        _this.state.formRef.current.validateFields().then(values => {
+          const params = {};
+          Object.keys(values).forEach((key) => {
+            if (key === 'plate') params.plate = values.plate.join(',');
+            if (key === 'cover') params.cover = values.cover.join('|');
+            else params[key] = values[key];
+          })
+          params.type = '1';
+          this.props.publishDraft(params);
+        })
       })
-      params.type = '1';
-      this.props.publishDraft(params);
-    })
+    } else return;
+  }
+  getImageList = (e) => {
+    const imageList = [];
+    if (!e.fileList || !Array.isArray(e.fileList)) return imageList;
+    e && e.fileList.forEach((file) => {
+      const tUrl = file.response && file.response.code * 1 === 0 && file.response.location;
+      if (tUrl) imageList.push(tUrl);
+    });
+    return imageList;
   }
   render() {
     const { categoryList, plateList, fields } = this.props;
@@ -95,27 +119,31 @@ class Add extends Component {
       wrapperCol: { span: 22 },
     };
     const layoutRight = {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 18 },
     };
     const operations = <ButtonCon>
       <Button> 保存草稿 </Button>
-      <Button type="primary" onClick={this.handlePublish}> 发布 </Button>
+      <Button type="primary" onClick={() => this.handlePublish()}> 发布 </Button>
       </ButtonCon>;
     const uploadProps = {
-      name: 'cover',
+      name: 'file',
       action: 'http://127.0.0.1:3000/user/fileUpload',
+      className: 'avatar-uploader',
+      showUploadList: true,
+      listType: 'picture-card',
       // headers: {
       //   authorization: 'authorization-text',
       // },
       onChange(info) {
         if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
+          // console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
+          message.success(`${info.file.name} 上传成功`);
+          return info.fileList;
         } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
+          message.error(`${info.file.name} 上传失败`);
         }
       },
     }
@@ -136,6 +164,7 @@ class Add extends Component {
                     {...layoutRight}
                     label="类目"
                     name="cid"
+                    required
                   >
                     <TreeSelect
                       dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -145,27 +174,30 @@ class Add extends Component {
                       treeDefaultExpandAll
                     />
                   </Form.Item>
-                  <Form.Item
-                    {...layoutRight}
-                    label="板块"
-                    name="plate"
-                  >
-                    <Select
-                      mode="tags"
-                      placeholder="请选择板块"
-                      defaultValue={[]}
+                  {plateList && !!plateList.length && (
+                    <Form.Item
+                      {...layoutRight}
+                      label="板块"
+                      name="plate"
                     >
-                      {plateList && !!plateList.length && plateList.map((item) => {
-                        return <Option key={item.id}>{item.name}</Option>;
-                      })}
-                    </Select>
-                  </Form.Item>
+                      <Select
+                        mode="tags"
+                        placeholder="请选择板块"
+                        defaultValue={[]}
+                      >
+                        {plateList && !!plateList.length && plateList.map((item) => {
+                          return <Option key={item.id}>{item.name}</Option>;
+                        })}
+                      </Select>
+                    </Form.Item>
+                  )}
                 </RightSide>
                 <LeftSide>
                   <Form.Item
                     {...layout}
                     label="标题"
                     name="title"
+                    required
                   >
                     <Input />
                   </Form.Item>
@@ -189,13 +221,22 @@ class Add extends Component {
                     {...layout}
                     label="封面"
                     name="cover"
+                    getValueFromEvent={this.getImageList}
                   >
-                    <Upload {...uploadProps}>
-                      <Button>
-                        <UploadOutlined /> Click to Upload
-                      </Button>
+                    <Upload
+                      {...uploadProps}
+                    >
+                      <div>
+                        <PlusOutlined />
+                        <div className="ant-upload-text">上传</div>
+                      </div>
                     </Upload>
-                  </Form.Item>  
+                  </Form.Item>
+                  <div>
+                    {/* {covers && !!covers.length && covers.map((url) => (
+                      <div style={{ width: '100px', height: '100px', overflow: 'hidden', float: 'left', }} key={url}><img style={{ width: '100px', height: '100px' }} src={url} alt=""/></div>
+                    ))} */}
+                  </div>
                 </LeftSide>
               </Form> 
             </TabPane>

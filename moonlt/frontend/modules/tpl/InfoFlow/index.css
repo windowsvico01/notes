@@ -25,11 +25,11 @@
           text-decoration: none;
           color: #5f5b5b; }
       .module-wrapper .infoFlow .nav-box ul .active {
-        background: #ff92f6; }
+        background: #f0baee; }
         .module-wrapper .infoFlow .nav-box ul .active a {
-          color: #fff; }
+          color: #ffffff; }
       .module-wrapper .infoFlow .nav-box ul :hover {
-        background: pink; }
+        background: #efd1ee; }
   .module-wrapper .infoFlow .s-left {
     float: left; }
   .module-wrapper .infoFlow .s-right {
@@ -48,10 +48,10 @@
         width: 100%;
         height: 40px;
         padding: 7px 10px;
-        border: 1px solid #eee; }
+        border: 1px solid #e8e8e8; }
         .module-wrapper .infoFlow ul li .tab-box a {
           text-decoration: none;
-          color: #5f5b5b; }
+          color: #999999; }
         .module-wrapper .infoFlow ul li .tab-box .tab-item {
           display: inline-block;
           height: 26px;
@@ -62,10 +62,10 @@
           text-align: center;
           margin-right: 5px; }
         .module-wrapper .infoFlow ul li .tab-box .active {
-          background: #ff92f6;
-          color: #fff; }
+          background: #f0baee;
+          color: #ffffff; }
         .module-wrapper .infoFlow ul li .tab-box :hover {
-          background: pink; }
+          background: #efd1ee; }
         .module-wrapper .infoFlow ul li .tab-box .tab-item:last-child {
           border-right: none; }
       .module-wrapper .infoFlow ul li .single-cover {
@@ -124,13 +124,13 @@
               overflow: hidden;
               text-overflow: ellipsis; }
               .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .title-box a {
-                color: #222;
+                color: #000;
                 text-decoration: none; }
               .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .title-box a:hover {
-                color: #3c9af1; }
+                color: #f0baee; }
             .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box {
               font-size: 12px;
-              color: #999;
+              color: #999999;
               margin-top: 10px; }
               .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left {
                 display: inline-block;
@@ -140,17 +140,17 @@
                   cursor: pointer; }
                 .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .footer-box-action {
                   font-size: 12px;
-                  color: #999;
+                  color: #c7c3c3;
                   margin-right: 10px;
                   padding: 1px 2px; }
                 .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .tag {
-                  border: 1px solid #eee; }
+                  border: 1px solid #e8e8e8; }
                 .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .c-tag {
-                  border-color: pink;
-                  color: pink; }
+                  border-color: #f0baee;
+                  color: #f0baee; }
                 .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .footer-box .footer-box-left .p-tag {
-                  border-color: green;
-                  color: green; }
+                  border-color: #b5edb3;
+                  color: #b5edb3; }
         .module-wrapper .infoFlow ul li .single-cover .single-cover-right:before {
           content: "";
           width: 0;
@@ -176,13 +176,13 @@
           overflow: hidden;
           text-overflow: ellipsis; }
           .module-wrapper .infoFlow ul li .no-cover .title-box a {
-            color: #222;
+            color: #000;
             text-decoration: none; }
           .module-wrapper .infoFlow ul li .no-cover .title-box a:hover {
-            color: #3c9af1; }
+            color: #f0baee; }
         .module-wrapper .infoFlow ul li .no-cover .footer-box {
           font-size: 12px;
-          color: #999;
+          color: #999999;
           margin-top: 10px;
           overflow: hidden; }
           .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left {
@@ -193,14 +193,36 @@
               cursor: pointer; }
             .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .footer-box-action {
               font-size: 12px;
-              color: #999;
+              color: #c7c3c3;
               margin-right: 10px;
               padding: 1px 2px; }
             .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .tag {
-              border: 1px solid #eee; }
+              border: 1px solid #e8e8e8; }
             .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .c-tag {
-              border-color: pink;
-              color: pink; }
+              border-color: #f0baee;
+              color: #f0baee; }
             .module-wrapper .infoFlow ul li .no-cover .footer-box .footer-box-left .p-tag {
-              border-color: green;
-              color: green; }
+              border-color: #b5edb3;
+              color: #b5edb3; }
+      .module-wrapper .infoFlow ul li .load-more {
+        height: 35px;
+        width: 100%;
+        background: #b5edb3;
+        margin-top: 10px;
+        border: 1px solid #589256;
+        text-align: center;
+        line-height: 35px;
+        color: #589256;
+        font-size: 14px;
+        cursor: pointer; }
+      .module-wrapper .infoFlow ul li .no-more {
+        height: 35px;
+        width: 100%;
+        background: #eee;
+        margin-top: 10px;
+        border: 1px solid #e8e8e8;
+        text-align: center;
+        line-height: 35px;
+        color: #999999;
+        font-size: 14px;
+        cursor: pointer; }

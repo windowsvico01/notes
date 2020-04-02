@@ -24,7 +24,7 @@ class Article {
     })
   }
   getArticleInfo(params, cb) {
-    $.post('/content//getDraftInfo', params, (res, err) => {
+    $.post('/content/getDraftInfo', params, (res, err) => {
       cb(res.data);
     })
   }

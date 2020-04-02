@@ -1,11 +1,25 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
+        {{each data as article}}
+          {{set covers = article.cover ? article.cover.split('|') : [] }}
+          {{if covers[0]}}
+            <div class="swiper-slide">
+              <a href="/detail/{{article.article_id}}">
+                <img src="{{covers[0]}}" />
+              </a>
+              <div class="title-box">
+                <a class="tag c-tag">{{article.category_name}}</a>
+                {{set plate_name = article.plate_name ? article.plate_name.split(',') : []}}
+                {{set plate = article.plate ? article.plate.split(',') : []}}
+                {{each plate_name as pla}}
+                  <a class="tag p-tag">{{pla}}</a>
+                {{/each}}
+                <h2 class="title">{{article.title}}</h2>
+              </div>
+            </div>
+          {{/if}}
+        {{/each}}
     </div>
     <!-- 如果需要分页器 -->
     <div class="swiper-pagination"></div>
-    
-  
 </div>

@@ -70,13 +70,42 @@ var RenderModules = /*#__PURE__*/function () {
 
       moduleWrapper.length && moduleWrapper.each(function (index, item) {
         var templateType = $(item).attr('template-type') || 'no-template';
+        var modId = $(item).attr('mod-id');
         var template = _this.config.modules[templateType] ? new _this.config.modules[templateType]($(item)) : new _this.config.modules['NoTpl']($(item));
         var params = {
           category: _this.config.lt.category || '',
-          articleId: _this.config.lt.articleId || ''
+          articleId: _this.config.lt.articleId || '',
+          modData: _this.findMod(modId) || {}
         };
         template.init(params);
       });
+    }
+  }, {
+    key: "findMod",
+    value: function findMod(pModId) {
+      var pageData = this.config.pageData;
+      var finalItem = {};
+
+      var findChild = function findChild(data) {
+        data.forEach(function (item) {
+          if (item.type && item.type === 'row') {
+            findChild(item.modules);
+          } else if (Array.isArray(item)) {
+            item.forEach(function (item2) {
+              if (item2.type && item2.type === 'mod') {
+                if (item2.modId === pModId) {
+                  finalItem = item2;
+                }
+              } else {
+                findChild(item2);
+              }
+            });
+          }
+        });
+      };
+
+      findChild(pageData);
+      return finalItem;
     }
   }]);
 

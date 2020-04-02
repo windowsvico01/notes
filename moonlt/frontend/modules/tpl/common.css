@@ -1,4 +1,7 @@
 @charset "UTF-8";
+html {
+  -webkit-filter: grayscale(100%); }
+
 .row {
   width: 100%;
   height: auto;
@@ -13,8 +16,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  border-bottom: 1px solid #eee;
-  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  background: #ffffff;
   z-index: 99; }
   .row-full .col-full {
     width: 100%; }

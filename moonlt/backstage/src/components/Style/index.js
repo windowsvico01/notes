@@ -76,4 +76,30 @@ const RightSide = styled.div`
     margin:0 10px 24px 0;
   }
 `;
+// 图片上传UI组件
+const UploadBox = styled.div`
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  .item-box {
+    width: 102px;
+    height: 102px;
+    border-radius: 3px;
+    margin-right: 10px;
+    overflow: hidden;
+    float: left;
+  }
+  .demo {
+    border: 1px solid #666;
+    background: #fff;
+    padding: 10px;
+    img {
+      
+    }
+  }
+  .upload-btn {
+    border: 1px dashed #666;
+    background: #eee;
+  }
+`;
 export { Wrapper, FloatWrapper, Title, FormOperate, SpinCon, LeftSide, RightSide }

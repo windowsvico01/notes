@@ -32,10 +32,21 @@ var Banner = /*#__PURE__*/function () {
 
   _createClass(Banner, [{
     key: "init",
-    value: function init(data) {
-      var tHtml = (0, _index["default"])(data);
-      this.config.dom.html(tHtml);
-      this.afterInit();
+    value: function init(params) {
+      var _this = this;
+
+      var _params$modData = params.modData,
+          modData = _params$modData === void 0 ? {} : _params$modData;
+      console.log(params);
+      this.getArticle({
+        article_id: modData.articleId
+      }, function (res, err) {
+        var tHtml = (0, _index["default"])(res);
+
+        _this.config.dom.html(tHtml);
+
+        _this.afterInit();
+      });
     }
   }, {
     key: "afterInit",
@@ -64,6 +75,13 @@ var Banner = /*#__PURE__*/function () {
         //   el: '.swiper-scrollbar',
         // },
 
+      });
+    }
+  }, {
+    key: "getArticle",
+    value: function getArticle(params, cb) {
+      $.post('/content/getDraftList', params, function (res, err) {
+        cb(res.data);
       });
     }
   }]);

@@ -13,7 +13,7 @@ const path = require('path');
 
 const logBabelMetadata = () => {
     return through.obj((file, enc, cb) => {
-        console.log(file.babel.test); // 'metadata'
+        // console.log(file.babel.test); // 'metadata'
         cb(null, file);
     });
 }
@@ -65,7 +65,6 @@ const webpackTask = () => src('frontend/modules/**/*.art')
 const cleanTask = () => src('public/', { allowEmpty: true })
         .pipe(clean());
 const watchTask = () => watch(['frontend/**/*.html', 'frontend/**/*.js', 'frontend/sass/*.scss', 'images/*', 'frontend/modules/**/*.scss'], (cb) => {
-    console.log('watch');
     jsTask();
     htmlTask();
     styleTask();

@@ -57,7 +57,7 @@ var Article = /*#__PURE__*/function () {
   }, {
     key: "getArticleInfo",
     value: function getArticleInfo(params, cb) {
-      _jquery["default"].post('/content//getDraftInfo', params, function (res, err) {
+      _jquery["default"].post('/content/getDraftInfo', params, function (res, err) {
         cb(res.data);
       });
     }

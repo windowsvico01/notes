@@ -10,10 +10,11 @@
               template-type="{{$value.template}}"
               show-tab="{{$value.tab}}"
               show-nav="{{$value.nav}}"
+              mod-id="{{$value.modId}}"
             >
             </div>
           {{else}}
-            <div class="module-wrapper {{$value.template}}" template-type="{{$value.template}}"></div>
+            <div class="module-wrapper {{$value.template}}" template-type="{{$value.template}}" mod-id="{{$value.modId}}"></div>
           {{/if}}
           
         {{/each}}

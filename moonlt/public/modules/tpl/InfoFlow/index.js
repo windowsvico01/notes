@@ -7,17 +7,13 @@ exports["default"] = void 0;
 
 var _index = _interopRequireDefault(require("./index.art"));
 
+var _news = _interopRequireDefault(require("./news.art"));
+
 require("./index.css");
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33,7 +29,9 @@ var InfoFlow = /*#__PURE__*/function () {
       dom: dom,
       current: 1,
       limit: 10,
-      total: 0
+      total: 0,
+      category: '',
+      plate: ''
     };
   }
   /**
@@ -47,7 +45,6 @@ var InfoFlow = /*#__PURE__*/function () {
       var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       var _ca = params.category;
       var finalData = {};
-      console.log(params);
 
       var _this = this;
 
@@ -60,40 +57,95 @@ var InfoFlow = /*#__PURE__*/function () {
                 activeCid = caData.active_cid,
                 activeKey = caData.active_key,
                 rootKey = caData.root_key;
+            _this.state.category = activeCid;
+            finalData.activeCid = activeCid;
+            finalData.category = category;
+            finalData.isRoot = isRoot;
+            finalData.isHome = false;
+            finalData.activeKey = activeKey;
+            finalData.rootKey = rootKey;
+            finalData.rootCategory = rootCategory;
 
-            _this.getArticleData(_objectSpread({}, params, {
-              cid: activeCid
-            }), function (res) {
-              finalData.list = res.data;
-              finalData.activeCid = activeCid;
-              finalData.category = category;
-              finalData.isRoot = isRoot;
-              finalData.isHome = false;
-              finalData.activeKey = activeKey;
-              finalData.rootKey = rootKey;
-              finalData.rootCategory = rootCategory;
-              var tHtml = (0, _index["default"])(finalData);
-
-              _this.state.dom.html(tHtml);
-
-              _this.afterInit();
-            });
+            _this.setOuterHtml(finalData);
           });
         } else {
-          _this.getArticleData(_objectSpread({}, params, {
-            cid: ''
-          }), function (res) {
-            finalData.list = res.data;
-            finalData.isHome = true;
-            finalData.rootCategory = rootCategory;
-            console.log(rootCategory);
-            var tHtml = (0, _index["default"])(finalData);
+          finalData.rootCategory = rootCategory;
+          finalData.isHome = true;
 
-            _this.state.dom.html(tHtml);
-
-            _this.afterInit();
-          });
+          _this.setOuterHtml(finalData);
         }
+      });
+    }
+  }, {
+    key: "setOuterHtml",
+    value: function setOuterHtml(finalData) {
+      this.state.dom.html((0, _index["default"])(finalData));
+      var left = (0, _jquery["default"])('#nav-box').offset().left;
+      var top = (0, _jquery["default"])('#nav-box').offset().top;
+      (0, _jquery["default"])('#nav-box').css({
+        position: 'fixed',
+        top: "".concat(top, "px"),
+        left: "".concat(left, "px")
+      });
+      this.getMoreArticle();
+    }
+  }, {
+    key: "bindLoadMore",
+    value: function bindLoadMore() {
+      var loadMoreDom = this.state.dom.find('#load-more');
+
+      var _this = this;
+
+      loadMoreDom.on('click', function () {
+        _this.clicked = true;
+        if (!_this.clicked) return;
+
+        _this.getMoreArticle();
+      });
+    }
+  }, {
+    key: "getMoreArticle",
+    value: function getMoreArticle() {
+      var _this$state = this.state,
+          current = _this$state.current,
+          limit = _this$state.limit,
+          total = _this$state.total,
+          category = _this$state.category;
+      var params = {
+        page: current,
+        limit: limit,
+        total: total,
+        cid: category
+      };
+
+      var _this = this;
+
+      var loadMoreDom = _this.state.dom.find('#load-more');
+
+      this.getArticleData(params, function (res, err) {
+        var innerHtml = (0, _news["default"])({
+          list: res.data
+        });
+
+        var outDom = _this.state.dom.find('#news-list');
+
+        loadMoreDom && loadMoreDom.remove();
+        outDom.append(innerHtml);
+
+        if (res.data && res.data.length && res.data.length == limit) {
+          // 正常
+          outDom.append('<li id="load-more"><div class="s-box load-more">点击加载更多</div></li>');
+          _this.state.current += 1;
+
+          _this.bindLoadMore();
+        } else if (res.data && res.data.length && res.data.length < limit) {
+          // 没有下一页
+          outDom.append('<li><div class="s-box no-more">没有更多了...</div></li>');
+        } else {
+          if (current == 1) outDom.append('<li><div class="s-box no-more">暂时没有内容...</div></li>');else outDom.append('<li><div class="s-box no-more">没有更多了...</div></li>');
+        }
+
+        _this.afterInit();
       });
     }
   }, {
@@ -126,6 +178,12 @@ var InfoFlow = /*#__PURE__*/function () {
     key: "afterInit",
     value: function afterInit() {
       console.log('init InfoFlow');
+
+      var _this = this;
+
+      setTimeout(function () {
+        _this.clicked = false;
+      }, 500);
     }
   }]);
 

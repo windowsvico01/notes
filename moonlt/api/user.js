@@ -377,22 +377,21 @@ router.post('/sts', function (req, res, next) {
  * @param {string} file 上传文件
  */
 router.post('/fileUpload', (req, res) => {
-  console.log(req.files)
   cos.putObject({
     Bucket: 'moonlt-1301529976', /* 必须 */
     Region: 'ap-beijing',    /* 必须 */
-    Key: req.files.cover.originalFilename,              /* 必须 */
+    Key: req.files.file.originalFilename,              /* 必须 */
     StorageClass: 'STANDARD',
-    Body: fs.createReadStream(req.files.cover.path), // 上传文件对象
+    Body: fs.createReadStream(req.files.file.path), // 上传文件对象
     onProgress: function(progressData) {
         console.log(JSON.stringify(progressData));
     }
 }, function(err, data) {
-    console.log(err || data);
     if (!err) {
       res.send({
         'code': '0',
-        'location': data.Location,
+        'location': `http://${data.Location}`,
+        'msg': '图片上传成功',
       });
     }
 

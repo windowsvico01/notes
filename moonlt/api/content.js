@@ -384,7 +384,7 @@ router.post('/addPlate', urlencodedParser, (req, res, next) => {
  * @param {string} content - require - '正文'
  */
 router.post('/publishDraft', urlencodedParser, (req, res, next) => {
-  const { token, type, cid, plate, title, summary, content } = req.body;
+  const { token, type, cid, plate, title, summary, content, cover } = req.body;
   if (!req.cookies.token && !token) {
     res.send({
       'code': -9,
@@ -438,8 +438,13 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
           plateRes && plateRes.length && plateRes.forEach((item) => {
             plateName.push(item.name);
           })
-          const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, create_time) VALUES(0,?,?,?,?,?,?,?,?,?,?,?)';
-          const addSqlParams = [type, cid, categoryName.join(','), plate, plateName.join(','), authorUid, authorName, title, summary, content, moment().format('YYYY-MM-DD HH:mm:ss')];
+          const articleId = sha1(JSON.stringify({
+            create_time: moment(),
+            cid,
+            plate,
+          }));
+          const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, create_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+          const addSqlParams = [`article_${articleId}`, type, cid, categoryName.join(','), plate, plateName.join(','), authorUid, authorName, title, summary, content, cover, moment().format('YYYY-MM-DD HH:mm:ss')];
           db.query(addSql, addSqlParams, (err, result) => {
             if (err) {
               res.send({
@@ -455,8 +460,13 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
           })
         })
       } else { // 没选板块
-        const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, create_time) VALUES(0,?,?,?,?,?,?,?,?,?,?,?)';
-        const addSqlParams = [type, cid, categoryName.join(','), '', '', authorUid, authorName, title, summary, content, moment().format('YYYY-MM-DD HH:mm:ss')];
+        const articleId = sha1(JSON.stringify({
+          create_time: moment(),
+          cid,
+          plate,
+        }));
+        const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, create_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        const addSqlParams = [`article_${articleId}`, type, cid, categoryName.join(','), '', '', authorUid, authorName, title, summary, content, cover, moment().format('YYYY-MM-DD HH:mm:ss')];
         db.query(addSql, addSqlParams, (err, result) => {
           if (err) {
             res.send({
@@ -484,9 +494,9 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
  * @param {string} limit - nullable - '每页展示多少条'
  */
 router.post('/getDraftList', urlencodedParser, (req, res) => {
-  const { title, cid, plate, author_name, page = 1, limit = 20 } = req.body;
+  const { article_id, title, cid, plate, author_name, page = 1, limit = 20 } = req.body;
   let sql = 'SELECT article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article';
-  const pParams = { title, cid, plate, author_name, page, limit };
+  const pParams = { title, cid, plate, author_name, page, limit, article_id };
   const getDraft = (tParams) => {
     const finalKeys = [];
     let searchSql = '';
@@ -511,6 +521,7 @@ router.post('/getDraftList', urlencodedParser, (req, res) => {
       }
     })
     sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
+    console.log(sql);
     db.query(sql, '', (err, articleList) => {
       if (err) {
         res.send({

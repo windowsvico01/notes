@@ -8,10 +8,14 @@ class Banner {
             dom,
         }
     }
-    init(data) {
-       const tHtml = index(data);
-       this.config.dom.html(tHtml);
-       this.afterInit();
+    init(params) {
+      const { modData = {} } = params;
+      console.log(params)
+      this.getArticle({article_id: modData.articleId}, (res, err) => {
+        const tHtml = index(res);
+        this.config.dom.html(tHtml);
+        this.afterInit();
+      })
     }
     afterInit() {
         this.initSwiper()
@@ -38,6 +42,11 @@ class Banner {
             //   el: '.swiper-scrollbar',
             // },
           })
+    }
+    getArticle(params, cb) {
+      $.post('/content/getDraftList', params, (res,err) => {
+        cb(res.data);
+      })
     }
 }
 export default Banner;

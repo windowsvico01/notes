@@ -1,10 +1,12 @@
+@import './global.scss';
+html {-webkit-filter: grayscale(100%);}
 .row {
     width: 100%;
     height: auto;
-    margin: 0 auto 10px;
+    margin: 0 auto $margin-h;
     position: relative;
     .module-wrapper {
-        margin-bottom: 10px;
+        margin-bottom: $margin-h;
     }
 }
 .row-full { // 100%宽度容器
@@ -13,8 +15,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    border-bottom: 1px solid #eee;
-    background: #fff;
+    border-bottom: 1px solid $border;
+    background: $bg-light;
     z-index: 99;
     .col-full {
         width: 100%;
@@ -25,7 +27,7 @@
 }
 .row-600-300 {
     width: 920px;
-    margin: 10px auto;
+    margin: $margin-h auto;
     .col-600 {
         width: 600px;
         height: auto;
@@ -40,7 +42,7 @@
 }
 .row-800-300 {
     width: 1120px;
-    margin: 10px auto;
+    margin: $margin-h auto;
     .col-800 {
         width: 800px;
         height: auto;

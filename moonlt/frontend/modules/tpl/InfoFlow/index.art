@@ -1,5 +1,5 @@
 <div class="infoFlow">
-  <div class="nav-box">
+  <div class="nav-box" id="nav-box">
     <ul>
       <li class="{{isHome ? 'active' : ''}}"><a href="/">推荐</a></li>
       {{each rootCategory.category as rootCate}}
@@ -7,7 +7,7 @@
       {{/each}}
     </ul>
   </div>
-  <ul>
+  <ul id="news-list">
       {{if !isHome}}
         <li>
           <div class="s-box tab-box">
@@ -20,67 +20,5 @@
           </div>
         </li>
       {{/if}}
-    {{each list as article}} 
-      <li>
-        {{set covers = article.cover ? article.cover.split('|') : [] }}
-        {{if covers.length === 0 }}
-          <div class="s-box no-cover">
-            <div class="title-box">
-              <a href="/detail/{{article.article_id}}" target="_blank">{{article.title}}</a>
-            </div>
-            <div class="footer-box">
-              <div class="s-left footer-box-left">
-                {{set categorys = article.category_name.split(',')}}
-                {{set cids = article.cid.split(',')}}
-                {{each categorys as cate}}
-                  <a class="footer-box-action tag c-tag">{{cate}}</a>
-                {{/each}}
-                {{set plate_name = article.plate_name ? article.plate_name.split(',') : []}}
-                {{set plate = article.plate ? article.plate.split(',') : []}}
-                {{each plate_name as pla}}
-                  <a class="footer-box-action tag p-tag">{{pla}}</a>
-                {{/each}}
-                <a class="footer-box-action author-name">{{article.author_name}}</a>
-                <span class="footer-box-action">{{article.create_time}}</span>
-              </div>
-              <div class="s-right"></div>
-            </div>
-          </div>
-        {{else if covers.length === 1}}
-          <div class="s-box single-cover">
-            <div class="s-left single-cover-left">
-              <a class="img-cover" href="/detail/{{article.article_id}}" target="_blank">
-                <img src="{{covers[0]}}" />
-              </a>
-            </div>
-            <div class="single-cover-right">
-              <div class="single-cover-right-inner">
-                <div class="title-box">
-                  <a href="/detail/{{article.article_id}}" target="_blank">{{article.title}}</a>
-                </div>
-                <div class="footer-box">
-                  <div class="s-left footer-box-left">
-                    {{set categorys = article.category_name ? article.category_name.split(',') : []}}
-                    {{set cids = article.cid ?article.cid.split(',') : []}}
-                    {{each categorys as cate}}
-                      <a class="footer-box-action tag c-tag">{{cate}}</a>
-                    {{/each}}
-                    {{set plate_name = article.plate_name ? article.plate_name.split(',') : []}}
-                    {{set plate = article.plate ? article.plate.split(',') : []}}
-                    {{each plate_name as pla}}
-                      <a class="footer-box-action tag p-tag">{{pla}}</a>
-                    {{/each}}
-                    <a class="footer-box-action author-name">{{article.author_name}}</a>
-                    <span class="footer-box-action">{{article.create_time}}</span>
-                  </div>
-                  <div class="s-right"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        {{else if covers.length === 3}}
-        {{/if}}
-      </li>
-    {{/each}}
   </ul>
 </div>

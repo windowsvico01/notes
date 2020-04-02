@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[79],{244:function(n,t,e){"use strict";e.r(t),e.d(t,"selectContent",function(){return c});var o=e(50),c=Object(o.a)(function(n){return n.get("Plugins/Editor")},function(n){return n&&n.content})}}]);
-//# sourceMappingURL=79.b35ceba3.chunk.js.map

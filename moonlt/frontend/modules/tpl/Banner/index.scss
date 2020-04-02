@@ -1,10 +1,70 @@
+@import '../global.scss';
 .swiper-container {
     width: 600px;
     height: 300px;
     overflow: hidden;
 }
 .swiper-slide {
-    background: pink;
+    background-color: $warm-light;
     width: 600px;
     height: 300px;
+    overflow: hidden;
+    position: relative;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      img {
+        display: block;
+        min-height: 100%;
+        min-width: 100%;
+        max-height: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        transition: all .5s ease-out .1s;
+      }
+      img:hover {
+        transform:scale(1.1);
+      }
+    }
+    .title-box {
+      width: 100%;
+      height: 50px;
+      background: rgba(1,1,1,0.5);
+      padding: 10px 20px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      overflow: hidden;
+      .title {
+        height: 30px;
+        float: right;
+        line-height: 30px;
+        color: $font-white;
+        font-size: 18px;
+      }
+      .tag {
+        height: 20px;
+        width: auto;
+        float: left;
+        line-height: 18px;
+        color: $font-white;
+        font-size: 14px;
+        border: 1px solid $border;
+        margin-top: 5px;
+        display: block;
+        cursor: pointer;
+        margin-right: 15px;
+        padding: 0 5px;
+      }
+      .c-tag {
+        border-color: $warm;
+        color: $warm;
+      }
+      .p-tag {
+        border-color: $cold;
+        color: $cold;
+      }
+    }
 }

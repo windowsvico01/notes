@@ -9,8 +9,8 @@
       <div class="user-name">{{userInfo.username}}</div>
     {{else}}
       <div class="buttons">
-        <a type="button" class="btn btn-warning" href="/login.html">登录</a>
-        <a type="button" class="btn btn-warning" href="/register.html">注册</a>
+        <a type="button" class="btn" href="/login.html">登录</a>
+        <a type="button" class="btn" href="/register.html">注册</a>
       </div>
     {{/if}}
   </div>
