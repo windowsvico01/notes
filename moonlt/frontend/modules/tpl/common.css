@@ -1,7 +1,4 @@
 @charset "UTF-8";
-html {
-  -webkit-filter: grayscale(100%); }
-
 .row {
   width: 100%;
   height: auto;
