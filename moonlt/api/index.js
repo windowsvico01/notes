@@ -55,13 +55,13 @@ router.post('/register', urlencodedParser, (req, res, next) => {
 })
 // 登录  // -1 已有用户登录  -2 参数错误 -3 获取数据失败 -4 账号密码错误  -5 系统错误
 router.post('/login', urlencodedParser, (req, res) => {
-  if (req.cookies.token) {
-    res.send({
-      'code': -1,
-      'msg': '已经有用户登录',
-    })
-    return;
-  }
+  // if (req.cookies.token) {
+  //   res.send({
+  //     'code': -1,
+  //     'msg': '已经有用户登录',
+  //   })
+  //   return;
+  // }
   if (!req.body.account || !req.body.password) {
     res.send({
       'code': -1,
