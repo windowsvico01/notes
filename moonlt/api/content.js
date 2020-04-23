@@ -62,9 +62,7 @@ router.post('/getLevelCategory', urlencodedParser, (req, res) => {
     }
     const tPid = categoryInfo[0].pid;
     const tCid = categoryInfo[0].cid;
-    console.log(categoryInfo[0].cid);
     if (tPid * 1 === 0) { // 查询key是根类目获取他的子类目
-      console.log('根类目')
       const sql = `SELECT cid, path_key, pid, name, plate FROM category WHERE pid='${tCid}' ORDER BY create_time ASC`;
       db.query(sql, '', (errcate, category) => {
         if (errcate) {
@@ -521,7 +519,6 @@ router.post('/getDraftList', urlencodedParser, (req, res) => {
       }
     })
     sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
-    console.log(sql);
     db.query(sql, '', (err, articleList) => {
       if (err) {
         res.send({
@@ -567,7 +564,6 @@ router.post('/getDraftList', urlencodedParser, (req, res) => {
       let childCids = '';
       if (cidList && cidList.length) {
         cidList.forEach((c, i) => {
-          console.log(c);
           if (i === 0) childCids = c.cid;
           else childCids = `${childCids},${c.cid}`;
         })

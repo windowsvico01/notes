@@ -19,7 +19,7 @@ app.use(urlencodedParser);
 app.use(multipart());
 app.use('/public', express.static('public'));
 app.use('/', express.static('public/page'));
-app.use(['/back', '/back/*'], express.static('backstage/build/index.html'));
+app.use(['/admin', '/admin/*'], express.static('backstage/build/index.html'));
 app.use('/static', express.static('backstage/build/static'));
 app.use('/api', api);
 app.use('/user', user);
@@ -109,7 +109,6 @@ io.on('connection', function(socket) {
     });
     socket.on('leaveRoom', function(roomId, uid) {
       socket.leave(roomId, function(){
-        console.log(uid);
         let rooms = Object.keys(socket.rooms);
         // console.log(rooms); // [ <socket.id>, 'room 237' ]
       })
