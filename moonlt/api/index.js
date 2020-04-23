@@ -122,13 +122,20 @@ router.post('/getUserInfo', urlencodedParser, (req, res) => {
     })
     // res.redirect(301, '/login.html');
     return;
-  }  
+  }
   const sql = `SELECT username, account, tk_timer, uid FROM user WHERE token='${tToken}'`;
   db.query(sql, '', (err, result) => {
     if (err) {
       res.send({
         'code': -1,
         'msg': err.message
+      })
+      return;
+    }
+    if (!result.length) {
+      res.send({
+        'code': -1,
+        'msg': '当前登录状态已过期，请重新登录',
       })
       return;
     }

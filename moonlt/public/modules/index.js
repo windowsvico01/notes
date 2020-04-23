@@ -83,6 +83,7 @@ var RenderModules = /*#__PURE__*/function () {
   }, {
     key: "findMod",
     value: function findMod(pModId) {
+      // 找到该mod的页面数据
       var pageData = this.config.pageData;
       var finalItem = {};
 

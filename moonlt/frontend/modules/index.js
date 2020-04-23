@@ -44,7 +44,7 @@ class RenderModules {
       template.init(params);
     });
   }
-  findMod(pModId) {
+  findMod(pModId) { // 找到该mod的页面数据
     const { pageData } = this.config;
     let finalItem = {};
     const findChild = (data) => {

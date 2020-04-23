@@ -62,6 +62,13 @@ router.post('/getMenuList', urlencodedParser, (req, res) => {
         })
         return;
       }
+      if (!result.length) {
+        res.send({
+          'code': -1,
+          'msg': '当前登录状态已过期，请重新登录',
+        })
+        return;
+      }
       const currentTimer = moment().valueOf();
       if (result[0].tk_timer + ( 1000 * 60 * 60 * 24 * 30 ) < currentTimer ) {
         res.send({
