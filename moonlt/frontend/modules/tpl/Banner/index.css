@@ -4,7 +4,7 @@
   overflow: hidden; }
 
 .swiper-slide {
-  background-color: #efd1ee;
+  background-color: #f3cde8;
   width: 600px;
   height: 300px;
   overflow: hidden;
@@ -53,8 +53,8 @@
       margin-right: 15px;
       padding: 0 5px; }
     .swiper-slide .title-box .c-tag {
-      border-color: #f0baee;
-      color: #f0baee; }
+      border-color: #CC6699;
+      color: #CC6699; }
     .swiper-slide .title-box .p-tag {
-      border-color: #b5edb3;
-      color: #b5edb3; }
+      border-color: #66CC99;
+      color: #66CC99; }
