@@ -126,6 +126,7 @@ class Add extends Component {
       <Button> 保存草稿 </Button>
       <Button type="primary" onClick={() => this.handlePublish()}> 发布 </Button>
       </ButtonCon>;
+    console.log(window.location.hostname);
     const uploadProps = {
       name: 'file',
       action: window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:3000/user/fileUpload' : 'http://62.234.73.102:3000/user/fileUpload',

@@ -55,7 +55,7 @@ app.get('/ca/*',  function(req, res) {
 app.get('/detail/*',  function(req, res) {
   res.sendFile(__dirname + '/public/page/detail.html');
 });
-app.get('/back/*', function(req, res) {
+app.get('/admin/*', function(req, res) {
   res.sendFile(__dirname + '/backstage/build/index.html');
 });
 io.attach(server, {

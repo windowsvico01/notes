@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <Provider store={store}>
           <ConnectedRouter history={history} context={ReactReduxContext}>
-            <BrowserRouter basename="/back">
+            <BrowserRouter basename="/admin">
               <AppWrapper>
               <Switch>
                 <Route path="/404" component={NotFound} />           
