@@ -5,6 +5,8 @@ import * as actions from './actions';
 import { createStructuredSelector } from 'reselect';
 import { selectHi, selectCount } from './reselector';
 import { Helmet } from "react-helmet";
+import Toy from '@/components/Toys';
+
 
 
 class Hi extends Component {
@@ -25,6 +27,7 @@ class Hi extends Component {
         <br/>
         <button onClick={() => this.handleAdd(2)}>+2</button>
         <button onClick={() => this.handleAdd(-1)}>-1</button>
+        <Toy />
       </div>
     )
   }

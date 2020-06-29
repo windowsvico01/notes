@@ -1,8 +1,8 @@
 import produce from 'immer';
-import { LOAD_CATEGORY_SUCCESS, LOAD_PLATE_SUCCESS, FIELDS_CHANGE, CHANGE_MODAL } from './actions';
+import { LOAD_CATEGORY_SUCCESS, LOAD_FORUM_SUCCESS, FIELDS_CHANGE, CHANGE_MODAL } from './actions';
 export const initialState = {
   info: {},
-  plateList: [],
+  forumList: [],
   fields: [],
   modalVisible: false,
 };
@@ -13,8 +13,8 @@ const detailReducer = (state = initialState, action) =>
       case LOAD_CATEGORY_SUCCESS:
         draft.info = action.data.category;
         break;
-      case LOAD_PLATE_SUCCESS:
-        draft.plateList = action.data.plate;
+      case LOAD_FORUM_SUCCESS:
+        draft.forumList = action.data.forum;
         break;
       case FIELDS_CHANGE:
         draft.fields = [...action.fields];

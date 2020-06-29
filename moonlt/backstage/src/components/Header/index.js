@@ -1,44 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Avatar, Menu, Dropdown } from 'antd';
+import { Button, Avatar, Menu, Dropdown, Layout } from 'antd';
 import { Icon } from '@ant-design/compatible';
 
+const { Header} = Layout;
 
-const Bar = styled.div`
-   height: 60px;
-   padding: 10px 10px;
-   background: #FFF;
-   overflow: hidden;
-   color: #0d1a26;
-   margin-bottom: 24px;
-   box-shadow: 0 2px 7px rgba(0,0,0,.2);
-`;
 const LogoCon = styled.div`
    height: 40px;
    width: 120px;
+   margin-top: 4px;
    /* text-align: center; */
    line-height: 40px;
    font-size: 20px;
    font-weight: bold;
    float: left;
-   margin-left: 20px;
 `;
 const LogCon = styled.div`
-   height: 40px;
-   width: auto;
-   float: right;
-   .btnCon{
-      height: 40px;
-      line-height: 40px;
-      vertical-align: center;
-      Button{
-        font-size: 14px;
-      }
-      /* .ant-btn:hover, .ant-btn:focus{
-        color: #7037e8;
-        border-color: #7037e8;
-      } */
-   }
+  height: 42px;
+  margin-top: 2px;
+  width: auto;
+  float: right;
+  .btnCon{
+    height: 42px;
+    line-height: 42px;
+    vertical-align: center;
+    Button{
+      font-size: 14px;
+    }
+  }
    .personInfo{
     height: 42px;
     max-width: 150px;
@@ -127,36 +116,26 @@ const menu = (
     </Menu>
 );
 
-class Header extends React.PureComponent {
-    constructor(props){
-        super(props);
-        this.state = {
-            loginStatus: '0',//0:未登录   1：已登录
-        };
-    }
-    render() {
-        const { userInfo } = this.props;
-        return (
-            <Bar>
-              <LogoCon><PandaIcon style={{ lineHeight: '40px', fontSize: '25px', display: 'inline-block', float: 'left', marginTop: '-3px', marginRight: '10px' }} /> MOONLT</LogoCon>
-              <LogCon>
-                {(userInfo && userInfo.uid) ?  
-                <Dropdown overlay={menu}>
-                  <div className="personInfo" href="#">
-                      {userInfo.head_image ? <Avatar size={38} src={userInfo.head_image}></Avatar> : <Avatar size={38}>{userInfo.username && userInfo.username.substring(0,1)}</Avatar>}                       
-                      <span className="userName">{userInfo.username}</span>
-                  </div>
-                </Dropdown>
-                :
-                <div className="btnCon">
-                    <Button style={{marginRight:'20px'}} href="/login.html">登录</Button>
-                    <Button href="/register.html">注册</Button>
+export default (props) => {
+    const { userInfo } = props;
+    return (
+        <Header style={{ height: '48px', background: '#fff', marginBottom: '24px', boxShadow: '0 2px 7px rgba(0,0,0,.2)' }}>
+            <LogoCon><PandaIcon style={{ lineHeight: '40px', fontSize: '25px', display: 'inline-block', float: 'left', marginTop: '-3px', marginRight: '10px' }} /> MOONLT</LogoCon>
+            <LogCon>
+              {(userInfo && userInfo.uid) ?  
+              <Dropdown overlay={menu}>
+                <div className="personInfo" href="#">
+                    {userInfo.head_image ? <Avatar size={38} src={userInfo.head_image}></Avatar> : <Avatar size={38}>{userInfo.username && userInfo.username.substring(0,1)}</Avatar>}                       
+                    <span className="userName">{userInfo.username}</span>
                 </div>
-                }
-              </LogCon>
-            </Bar>
-        );
-    }
+              </Dropdown>
+              :
+              <div className="btnCon">
+                  <Button style={{marginRight:'20px'}} href="/login.html">登录</Button>
+                  <Button href="/register.html">注册</Button>
+              </div>
+              }
+            </LogCon>
+        </Header>
+    )
 }
-
-export default Header;

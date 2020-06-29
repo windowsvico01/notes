@@ -3,6 +3,7 @@
   <ul class="nav">
     <li><a href="/">首页</a></li>
     <li><a href="/chat.html">聊天</a></li>
+    <li><a href="/game.html">游戏</a></li>
   </ul>
   <div class="user">
     {{if userInfo}}

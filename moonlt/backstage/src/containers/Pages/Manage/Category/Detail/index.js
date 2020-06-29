@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Title, Wrapper, FloatWrapper, FormOperate} from '@/components/Style';
 import { Table, Button, Modal, Form, Input, Card, Row, Col } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
-import { selectInfo, selectPlateList, selectFields, selectModalVisible } from './selectors';
+import { selectInfo, selectForumList, selectFields, selectModalVisible } from './selectors';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions';
@@ -16,7 +16,7 @@ class Detail extends Component {
   }
   componentWillMount() {
     this.props.loadCategory({ cid: this.props.params.cid });
-    this.props.loadPlate({ cid: this.props.params.cid });
+    this.props.loadForum({ cid: this.props.params.cid });
   }
   toggleModalVisible = (bool) => {
     if (!bool) {
@@ -37,7 +37,7 @@ class Detail extends Component {
       timer: tTimer
     })
   }
-  handleAddPlate = () => {
+  handleAddForum = () => {
     const { cid } = this.props.params;
     this.state.formRef.current.validateFields().then(values => {
       const params = {};
@@ -45,11 +45,11 @@ class Detail extends Component {
         params[key] = values[key];
       })
       params.cid = cid;
-      this.props.addPlate(params);
+      this.props.addForum(params);
     })
   }
   render() {
-    const { info, plateList, fields, modalVisible } = this.props;
+    const { info, forumList, fields, modalVisible } = this.props;
     const { formRef } = this.state;
     const columns = [{
       title: '板块名称',
@@ -57,9 +57,9 @@ class Detail extends Component {
       key: 'name',
       width: 200,
     }, {
-      title: '板块id',
-      dataIndex: 'id',
-      key: 'id',
+      title: '板块fid',
+      dataIndex: 'fid',
+      key: 'fid',
     }, {
       title: '所属类目',
       dataIndex: 'category_name',
@@ -129,13 +129,13 @@ class Detail extends Component {
           </Button>
         </FloatWrapper>
         <Wrapper>
-          <Table columns={columns} size="middle" dataSource={plateList && !!plateList.length && plateList} pagination={false} rowKey="id" />
+          <Table columns={columns} size="middle" dataSource={forumList && !!forumList.length && forumList} pagination={false} rowKey="fid" />
         </Wrapper>
         <Modal
           title="添加模块"
           visible={modalVisible}
           width={500}
-          onOk={() => this.handleAddPlate()}
+          onOk={() => this.handleAddForum()}
           onCancel={() => this.toggleModalVisible(false)}
           okText="确定"
           cancelText="取消"
@@ -165,7 +165,7 @@ class Detail extends Component {
 const mapStateToProps = (state) => {
   return {
     info: selectInfo(state),
-    plateList: selectPlateList(state),
+    forumList: selectForumList(state),
     fields: selectFields(state),
     modalVisible: selectModalVisible(state),
   };

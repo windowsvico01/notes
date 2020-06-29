@@ -6,7 +6,7 @@ import { LeftOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import { Title, Wrapper, RightSide, LeftSide } from '@/components/Style';
 import styled from 'styled-components';
 import * as actions from './actions';
-import { selectFields, selectCategoryList, selectPlateList } from './selectors';
+import { selectFields, selectCategoryList, selectForumList } from './selectors';
 import { countNum } from '@/utils/tools';
 import WangEditor from '@/components/Editor';
 const { TabPane } = Tabs;
@@ -60,10 +60,10 @@ class Add extends Component {
   componentWillMount() {
     this.props.loadCategory();
   }
-  handleLoadPlate = (value) => {
+  handleLoadForum = (value) => {
     const params = { cid: value };
     this.state.formRef.current.setFieldsValue({ plate: []})
-    this.props.loadPlate(params);
+    this.props.loadForum(params);
   }
   handleFilesChange = (values) => {
     if (this.state.timer) clearTimeout(this.state.timer);
@@ -112,7 +112,7 @@ class Add extends Component {
     return imageList;
   }
   render() {
-    const { categoryList, plateList, fields } = this.props;
+    const { categoryList, forumList, fields } = this.props;
     const { formRef } = this.state;
     const layout = {
       labelCol: { span: 2 },
@@ -133,6 +133,7 @@ class Add extends Component {
       className: 'avatar-uploader',
       showUploadList: true,
       listType: 'picture-card',
+      defaultFileList: [],
       // headers: {
       //   authorization: 'authorization-text',
       // },
@@ -171,11 +172,11 @@ class Add extends Component {
                       dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                       treeData={transCategoryData(categoryList)}
                       placeholder="请选择类目"
-                      onChange={this.handleLoadPlate}
+                      onChange={this.handleLoadForum}
                       treeDefaultExpandAll
                     />
                   </Form.Item>
-                  {plateList && !!plateList.length && (
+                  {forumList && !!forumList.length && (
                     <Form.Item
                       {...layoutRight}
                       label="板块"
@@ -184,10 +185,10 @@ class Add extends Component {
                       <Select
                         mode="tags"
                         placeholder="请选择板块"
-                        defaultValue={[]}
+                        initialValues={[]}
                       >
-                        {plateList && !!plateList.length && plateList.map((item) => {
-                          return <Option key={item.id}>{item.name}</Option>;
+                        {forumList && !!forumList.length && forumList.map((item) => {
+                          return <Option key={item.fid}>{item.name}</Option>;
                         })}
                       </Select>
                     </Form.Item>
@@ -215,7 +216,7 @@ class Add extends Component {
                     name="content"
                   >
                     <WangEditor
-                      defaultValue={''}
+                      initialValues={''}
                     />
                   </Form.Item>
                   <Form.Item
@@ -248,7 +249,6 @@ class Add extends Component {
               Content of Tab Pane 2
             </TabPane>
           </Tabs>
-
         </Wrapper>
       </div>
     )
@@ -258,7 +258,7 @@ const mapStateToProps = (state) => {
   return {
     fields: selectFields(state),
     categoryList: selectCategoryList(state),
-    plateList: selectPlateList(state),
+    forumList: selectForumList(state),
   };
 }
 const mapActionsToProps = (dispatch) => bindActionCreators({ ...actions }, dispatch);

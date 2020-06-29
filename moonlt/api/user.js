@@ -384,6 +384,7 @@ router.post('/sts', function (req, res, next) {
  * @param {string} file 上传文件
  */
 router.post('/fileUpload', (req, res) => {
+  console.log(req.files);
   cos.putObject({
     Bucket: 'moonlt-1301529976', /* 必须 */
     Region: 'ap-beijing',    /* 必须 */
@@ -394,6 +395,7 @@ router.post('/fileUpload', (req, res) => {
         console.log(JSON.stringify(progressData));
     }
 }, function(err, data) {
+    console.log(data);
     if (!err) {
       res.send({
         'code': '0',

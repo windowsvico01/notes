@@ -34,13 +34,34 @@ export default {
         }
       ]
     }, {
-      path: 'module',
-      route: 'module',
-      label: '模块管理',
+      path: 'forum',
+      route: 'forum',
+      label: '板块管理',
       show: true,
       hasReducer: false,
       hasSagas: false,
-      icon: 'edit',
+      child: [
+        {
+          path: 'list',
+          route: 'list',
+          label: '板块列表',
+          hasReducer: true,
+          hasSagas: true,
+        }, {
+          path: 'detail',
+          route: 'detail/:fid',
+          label: '板块详情',
+          show: true,
+          hasReducer: true,
+          hasSagas: true,
+        }, {
+          path: 'add',
+          route: 'add',
+          label: '添加板块',
+          hasReducer: true,
+          hasSagas: true,
+        }
+      ]
     }
   ]
 }

@@ -94,13 +94,14 @@ const CRouter = (store) => {
                   // 匹配?及其以后字符串
                   const queryParams = window.location.hash.match(reg);
                   // 去除?的参数
-                  console.log(props);
+                  // const queryParams = props.location.query || {};
                   const { params } = props.match;
                   Object.keys(params).forEach(key => {
                       params[key] = params[key] && params[key].replace(reg, '');
                   });
                   props.params = { ...params };
                   const merge = { ...props, query: queryParams ? queryString.parse(queryParams[0]) : {} };
+                  // const merge = { ...props, query: queryParams };
                   const finalNode = (
                     <Component {...merge}>
                       <Switch>

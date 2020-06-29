@@ -5,9 +5,9 @@ const selectInfo = createSelector(
   selectDetailDomain,
   (subState) => subState && subState.info,
 )
-const selectPlateList = createSelector(
+const selectForumList = createSelector(
   selectDetailDomain,
-  (subState) => subState && subState.plateList,
+  (subState) => subState && subState.forumList,
 )
 const selectFields = createSelector(
   selectDetailDomain,
@@ -19,7 +19,7 @@ const selectModalVisible = createSelector(
 )
 export {
   selectInfo,
-  selectPlateList,
+  selectForumList,
   selectFields,
   selectModalVisible,
 }

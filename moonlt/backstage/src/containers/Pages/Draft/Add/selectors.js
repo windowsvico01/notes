@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 // state.get 是异步的
 const selectAddDomain = state => state.get('Draft/Add');
 
-const selectPlateList = createSelector(
+const selectForumList = createSelector(
   selectAddDomain,
-  (subState) => subState && subState.plateList,
+  (subState) => subState && subState.forumList,
 )
 const selectFields = createSelector(
   selectAddDomain,
@@ -16,6 +16,6 @@ const selectCategoryList = createSelector(
 )
 export {
   selectCategoryList,
-  selectPlateList,
+  selectForumList,
   selectFields,
 }

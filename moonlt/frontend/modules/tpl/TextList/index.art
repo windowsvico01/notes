@@ -1,10 +1,14 @@
 <div class="text-list">
   <ul>
-    <li><a>这是第一条</a></li>
-    <li><a>这是第二条</a></li>
-    <li><a>这是第三条</a></li>
-    <li><a>这是第一条</a></li>
-    <li><a>这是第二条</a></li>
-    <li><a>这是第三条</a></li>
+    {{each list as item index}}
+      <li style="background-image: url({{item.cover}})">
+        <a style="color: {{item.color}}">{{item.name}}</a>
+        {{if item.hot}}
+        <span class="hot" style="background-image: url({{index <= 2 ? 'https://moonlt-1301529976.cos.ap-beijing.myqcloud.com/huangguan.png' : ''}})">
+          <p class="hot-num">{{item.hot}}</p>
+        </span>
+        {{/if}}
+      </li>
+    {{/each}}
   </ul>
 </div>

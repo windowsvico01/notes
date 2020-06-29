@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>游戏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/css/game_main.css">
+</head>
+<body>
+<div id="rich" class="r-container">
+
+</div>
+<script>
+    var style = document.createElement("style");
+    style.type = "text/css";
+    try{
+　　     style.appendChild(document.createTextNode('html{font-size:' + window.innerWidth/ 10 + 'px;}'));
+    } catch(ex) {
+        style.styleSheet.cssText = 'html{font-size:' + window.innerWidth/ 10 + 'px;}';//针对IE
+    }
+    var head = document.getElementsByTagName("head")[0];
+    head.appendChild(style);
+</script>
+<script src="/game/socket.io.js"></script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/public/js/tools/common.js"></script>
+<script src="/public/js/game_main.js"></script>    
+</body>
+</html>

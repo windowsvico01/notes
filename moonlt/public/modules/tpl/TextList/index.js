@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _index = _interopRequireDefault(require("./index.art"));
 
+var _jquery = _interopRequireDefault(require("jquery"));
+
 require("./index.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -29,14 +31,45 @@ var TextList = /*#__PURE__*/function () {
   _createClass(TextList, [{
     key: "init",
     value: function init(data) {
-      var tHtml = (0, _index["default"])(data);
-      this.config.dom.html(tHtml);
-      this.afterInit();
+      var _this = this;
+
+      if (data.modData.source === 'forum_sort') {
+        this.getRootCategory(function (res) {
+          console.log(res);
+          var list = res.forum;
+          var tHtml = (0, _index["default"])({
+            list: list
+          });
+
+          _this.config.dom.html(tHtml);
+
+          _this.afterInit();
+        });
+      }
     }
   }, {
     key: "afterInit",
     value: function afterInit() {
       console.log('init TextList');
+    }
+  }, {
+    key: "getRootCategory",
+    value: function getRootCategory(cb) {
+      var pathData = location.pathname.split('/');
+      ;
+      var category = pathData[2] || '';
+
+      _jquery["default"].post('/content/getForum', {
+        key: category,
+        sort_by: 'hot DESC',
+        limit: 5
+      }, function (res, err) {
+        console.log(res);
+
+        if (res && res.code === 0) {
+          cb(res.data);
+        } else cb([]);
+      });
     }
   }]);
 

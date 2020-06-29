@@ -1,6 +1,6 @@
 import { fork, call, put, takeLatest, takeEvery } from 'redux-saga/effects';
 import fetchData from '@/containers/App/sagas/fetchData';
-import { LOAD_CATEGORY, loadCategorySuccess, LOAD_PLATE, loadPlate, loadPlateSuccess, ADD_PLATE, changeModal } from './actions';
+import { LOAD_CATEGORY, loadCategorySuccess, LOAD_FORUM, loadForum, loadForumSuccess, ADD_FORUM, changeModal } from './actions';
 export function* handleLoadCategory(action) {
   const { cid } = action.params;
   if (!cid) return;
@@ -16,7 +16,7 @@ export function* handleLoadCategory(action) {
     yield put(loadCategorySuccess(result));
   }
 }
-export function* handleLoadPlate(action) {
+export function* handleLoadForum(action) {
   const { cid } = action.params;
   if (!cid) return;
   const formData = new FormData();
@@ -25,12 +25,12 @@ export function* handleLoadPlate(action) {
     method: 'POST',
     body: formData,
   }
-  const result = yield call(fetchData, { url: '/content/getPlate', options });
+  const result = yield call(fetchData, { url: '/content/getForum', options });
   if (result) {
-    yield put(loadPlateSuccess(result));
+    yield put(loadForumSuccess(result));
   }
 }
-export function* handleAddPlate(action) {
+export function* handleAddForum(action) {
   const { cid, name } = action.params;
   if (!cid || !name) return;
   const formData = new FormData();
@@ -40,16 +40,16 @@ export function* handleAddPlate(action) {
     method: 'POST',
     body: formData,
   }
-  const result = yield call(fetchData, { url: '/content/addPlate', options });
+  const result = yield call(fetchData, { url: '/content/addForum', options });
   if (result) {
-    yield put(loadPlate({ cid }));
+    yield put(loadForum({ cid }));
     yield put(changeModal(false));
   }
 }
 export function* watcher() {
   yield takeLatest(LOAD_CATEGORY, handleLoadCategory)
-  yield takeLatest(LOAD_PLATE, handleLoadPlate)
-  yield takeLatest(ADD_PLATE, handleAddPlate)
+  yield takeLatest(LOAD_FORUM, handleLoadForum)
+  yield takeLatest(ADD_FORUM, handleAddForum)
 }
 
 export default [

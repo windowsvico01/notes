@@ -119,10 +119,12 @@
               margin-bottom: 4px;
               font-weight: 700;
               max-height: 52px;
-              display: -webkit-box;
               -webkit-line-clamp: 2;
+              line-clamp: 2;
               overflow: hidden;
-              text-overflow: ellipsis; }
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              text-align: left; }
               .module-wrapper .infoFlow ul li .single-cover .single-cover-right .single-cover-right-inner .title-box a {
                 color: #000;
                 text-decoration: none; }

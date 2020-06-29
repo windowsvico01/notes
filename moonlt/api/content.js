@@ -12,7 +12,7 @@ const sha1 = require('js-sha1');
  * @param {string} name - nullable - '要获取的板块名称' - null全部
  */
 router.post('/getCategory', urlencodedParser, (req, res) => {
-  let sql = 'SELECT cid, pid, name, plate, path_key, create_time FROM category';
+  let sql = 'SELECT cid, pid, name, forum, path_key, create_time FROM category';
   if (req.body.pid) {
     sql = `${sql} WHERE pid='${req.body.pid}'`;
   }
@@ -63,7 +63,7 @@ router.post('/getLevelCategory', urlencodedParser, (req, res) => {
     const tPid = categoryInfo[0].pid;
     const tCid = categoryInfo[0].cid;
     if (tPid * 1 === 0) { // 查询key是根类目获取他的子类目
-      const sql = `SELECT cid, path_key, pid, name, plate FROM category WHERE pid='${tCid}' ORDER BY create_time ASC`;
+      const sql = `SELECT cid, path_key, pid, name, forum FROM category WHERE pid='${tCid}' ORDER BY create_time ASC`;
       db.query(sql, '', (errcate, category) => {
         if (errcate) {
           res.send({
@@ -95,7 +95,7 @@ router.post('/getLevelCategory', urlencodedParser, (req, res) => {
           return;
         }
         const parentKey = pCategoryInfo[0].path_key;
-        const sql = `SELECT cid, path_key, pid, name, plate FROM category WHERE pid='${tPid}' ORDER BY create_time ASC`;
+        const sql = `SELECT cid, path_key, pid, name, forum FROM category WHERE pid='${tPid}' ORDER BY create_time ASC`;
         db.query(sql, '', (errcate, category) => {
           if (errcate) {
             res.send({
@@ -134,7 +134,7 @@ router.post('/getCategoryInfo', urlencodedParser, (req, res) => {
     });
     return;
   }
-  let sql = `SELECT cid, pid, name, plate, create_time FROM category WHERE cid='${cid}' ORDER BY create_time ASC`;
+  let sql = `SELECT cid, pid, name, forum, create_time FROM category WHERE cid='${cid}' ORDER BY create_time ASC`;
   db.query(sql, '', (err, category) => {
     if (err) {
       res.send({
@@ -207,7 +207,7 @@ router.post('/addCategory', urlencodedParser, (req, res, next) => {
  * @param {string} token - require - 'token'
  * @param {string} cid - require - '类目的cid' - 默认: 0
  * @param {string} name - nullable - '类目名称'
- * @param {string} plate - nullable - '类目下属板块'
+ * @param {string} forum - nullable - '类目下属板块'
  */
 router.post('/updateCategory', urlencodedParser, (req, res, next) => {
   const params = req.body;
@@ -262,10 +262,26 @@ router.post('/updateCategory', urlencodedParser, (req, res, next) => {
  * @param {string} page - nullable - '页码'
  * @param {string} limit - nullable - '每页展示多少条'
  */
-router.post('/getPlate', urlencodedParser, (req, res) => {
-  const { cid, id, name, page = 1, limit = 20 } = req.body;
-  let sql = 'SELECT id, cid, category_name, members, news_count, read_count, name, page_data, modules, create_time FROM plate';
-  const tParams = { cid, id, name, page, limit };
+router.post('/getForum', urlencodedParser, async (req, res) => {
+  const { cid, fid, name, page = 1, limit = 20, sort_by = 'create_time ASC', key = '' } = req.body;
+  const getCidByKey = () => {
+    const getCidSql = `SELECT cid FROM category WHERE path_key='${key}'`;
+    return new Promise(resolve => {
+      db.query(getCidSql, '', (err, category) => {
+        if (err) {
+          resolve('');
+        }
+        console.log(category[0].cid)
+        resolve(category[0].cid)
+      })
+    })
+    // setTimeout(() => {return new Promise(resolve => )12}, 123);
+    
+  }
+  let sql = 'SELECT fid, cid, category_name, members, news_count, read_count, name, cover, hot, color, page_data, modules, create_time FROM forum';
+  let tCid = cid;
+  if(key) tCid = await getCidByKey();
+  const tParams = { cid: tCid + '', fid, name, page, limit };
   const finalKeys = [];
   let searchSql = '';
   Object.keys(tParams).forEach((key, index) => {
@@ -288,8 +304,8 @@ router.post('/getPlate', urlencodedParser, (req, res) => {
       searchSql = `${searchSql} AND ${key} in (${finalParams})`;
     }
   })
-  sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
-  db.query(sql, '', (err, plate) => {
+  sql = `${sql}${searchSql} ORDER BY ${sort_by} LIMIT ${(page - 1) * limit},${limit};`;
+  db.query(sql, '', (err, forum) => {
     if (err) {
       res.send({
         'code': -1,
@@ -297,7 +313,7 @@ router.post('/getPlate', urlencodedParser, (req, res) => {
       })
       return;
     }
-    const CountSql = `SELECT COUNT(*) AS total FROM plate${searchSql}`;
+    const CountSql = `SELECT COUNT(*) AS total FROM forum${searchSql}`;
     db.query(CountSql, '', (errTotal, result) => {
       if (errTotal) {
         res.send({
@@ -309,7 +325,7 @@ router.post('/getPlate', urlencodedParser, (req, res) => {
       res.send({
         code: 0,
         data: {
-          plate,
+          forum,
           current: page,
           limit,
           total: result[0].total || 0,
@@ -321,13 +337,109 @@ router.post('/getPlate', urlencodedParser, (req, res) => {
   })
 })
 /**
+ * 获取板块详情
+ * @param {string} fid - required - '板块fid'
+ */
+router.post('/getForumInfo', urlencodedParser, (req, res) => {
+  const { fid } = req.body;
+  let sql = `SELECT * FROM forum WHERE fid='${fid}'`;
+  db.query(sql, '', (err, forumInfo) => {
+    if (err) {
+      res.send({
+        'code': -1,
+        'msg': err.message
+      })
+      return;
+    }
+    if (forumInfo && !!forumInfo.length) {
+      res.send({
+        code: 0,
+        data: forumInfo[0],
+        msg: '获取板块详情成功!',
+      })
+    } else {
+      res.send({
+        'code': -2,
+        'msg': '查无此板块',
+      })
+      return;
+    }
+  })
+})
+/**
  * 新建板块
  * @param {string} token - require - 'token'
  * @param {string} cid - require - '所属类目的cid' - 默认: 0
  * @param {string} name - require - '板块名称'
  * 
  */
-router.post('/addPlate', urlencodedParser, (req, res, next) => {
+router.post('/addForum', urlencodedParser, (req, res, next) => {
+  const params = req.body;
+  const { token, name, cid, cover = '', hot = 0, summary = '', color = '' } = params;
+  if (!req.cookies.token && !token) {
+    res.send({
+      'code': -9,
+      'msg': '用户未登录',
+    });
+    return;
+  }
+  if (!name || !cid) {
+    res.send({
+      'code': -1,
+      'msg': '参数缺失',
+    });
+    return;
+  }
+  // 查询user
+  const searchUserSql = `SELECT uid, username FROM user WHERE token='${token}'`;
+  db.query(searchUserSql, '', (errSearch, user) => {
+    if (errSearch) {
+      res.send({
+        'code': -1,
+        'msg': errSearch.message
+      })
+      return;
+    }
+    const creatorName = user[0].username;
+    const creatorUid = user[0].uid;
+    // 查询cid
+    const searchSql = `SELECT cid, name FROM category WHERE cid='${params.cid}'`;
+    db.query(searchSql, '', (errSearch, result) => {
+      if (errSearch) {
+        res.send({
+          'code': -1,
+          'msg': errSearch.message
+        })
+        return;
+      }
+      const c_name = result[0].name;
+      const addSql = 'INSERT INTO forum(fid, cid, category_name, name, cover, color,  hot, summary, managers, manager_names, creator, creator_name, create_time) VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?)';
+      const addSqlParams = [cid, c_name, name, cover, color, hot, summary, creatorUid, creatorName, creatorUid, creatorName, moment().format('YYYY-MM-DD HH:mm:ss')];
+      db.query(addSql, addSqlParams, (err, result) => {
+        if (err) {
+          res.send({
+            'code': -1,
+            'msg': err.message
+          })
+          return;
+        }
+        res.send({
+          'code': 0,
+          'msg': '成功',
+        })
+      })
+    })
+  })
+})
+/**
+ * 编辑板块
+ * @param {string} token - require - 'token'
+ * @param {string} cid - require - '所属类目的cid' - 默认: 0
+ * @param {string} name - require - '板块名称'
+ * @param {string} summary - nullable - '板块简介'
+ * @param {string} cover - nullable - '板块封面'
+ */
+router.post('/updateForum', urlencodedParser, (req, res, next) => {
   const params = req.body;
   if (!req.cookies.token && !params.token) {
     res.send({
@@ -336,38 +448,38 @@ router.post('/addPlate', urlencodedParser, (req, res, next) => {
     });
     return;
   }
-  if (!params.name || !params.cid) {
+  if (!params.fid) {
     res.send({
       'code': -1,
       'msg': '参数缺失',
     });
     return;
   }
-  // 查询cid
-  const searchSql = `SELECT cid, name FROM category WHERE cid='${params.cid}'`;
-  db.query(searchSql, '', (errSearch, result) => {
-    if (errSearch) {
+  const getUpdateSql = () => {
+    let tSql = 'UPDATE forum SET';
+    const keys = Object.keys(params);
+    const tKeys = [];
+    keys.forEach((key) => {
+      if (['token', 'fid'].indexOf(key) === -1) tKeys.push(key);
+    })
+    tKeys.forEach((key, index) => {
+      tSql =  `${tSql} ${key}='${params[key]}'${index === (tKeys.length - 1) ? '' : ','}`;
+    })
+    tSql = `${tSql} WHERE fid=${params.fid}`;
+    return tSql;
+  }
+  const updateSql = getUpdateSql();
+  db.query(updateSql, '', (err, result) => {
+    if (err) {
       res.send({
         'code': -1,
-        'msg': errSearch.message
+        'msg': err.message
       })
       return;
     }
-    const c_name = result[0].name;
-    const addSql = 'INSERT INTO plate(id, cid, category_name, name, create_time) VALUES(0,?,?,?,?)';
-    const addSqlParams = [params.cid, c_name, params.name, moment().format('YYYY-MM-DD HH:mm:ss')];
-    db.query(addSql, addSqlParams, (err, result) => {
-      if (err) {
-        res.send({
-          'code': -1,
-          'msg': err.message
-        })
-        return;
-      }
-      res.send({
-        'code': 0,
-        'msg': '成功',
-      })
+    res.send({
+      'code': 0,
+      'msg': '成功',
     })
   })
 })
@@ -376,13 +488,13 @@ router.post('/addPlate', urlencodedParser, (req, res, next) => {
  * @param {string} token - require - 'token'
  * @param {string} type - require - '稿件类型' - 1 图文 2 图集 3 视频
  * @param {string} cid - require - '所属类目'
- * @param {string} plate - nullable - '所属板块'
+ * @param {string} forum - nullable - '所属板块'
  * @param {string} title - require - '标题'
  * @param {string} summary - require - '简介'
  * @param {string} content - require - '正文'
  */
 router.post('/publishDraft', urlencodedParser, (req, res, next) => {
-  const { token, type, cid, plate, title, summary, content, cover } = req.body;
+  const { token, type, cid, forum, title, summary, content, cover } = req.body;
   if (!req.cookies.token && !token) {
     res.send({
       'code': -9,
@@ -422,9 +534,9 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
       category && category.length && category.forEach((item) => {
         categoryName.push(item.name);
       })
-      if (plate) { // 选择板块
-        const searchPlateSql = `SELECT name, id FROM plate WHERE id in (${plate})`;
-        db.query(searchPlateSql, '', (errSearch, plateRes) => {
+      if (forum) { // 选择板块
+        const searchForumSql = `SELECT name, fid FROM forum WHERE id in (${forum})`;
+        db.query(searchForumSql, '', (errSearch, forumRes) => {
           if (errSearch) {
             res.send({
               'code': -1,
@@ -432,17 +544,17 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
             })
             return;
           }
-          const plateName = [];
-          plateRes && plateRes.length && plateRes.forEach((item) => {
-            plateName.push(item.name);
+          const forumName = [];
+          forumRes && forumRes.length && forumRes.forEach((item) => {
+            forumName.push(item.name);
           })
           const articleId = sha1(JSON.stringify({
             create_time: moment(),
             cid,
-            plate,
+            forum,
           }));
-          const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, create_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-          const addSqlParams = [`article_${articleId}`, type, cid, categoryName.join(','), plate, plateName.join(','), authorUid, authorName, title, summary, content, cover, moment().format('YYYY-MM-DD HH:mm:ss')];
+          const addSql = 'INSERT INTO article(article_id, type, cid, category_name, forum, forum_name, author, author_name, title, summary, content, cover, create_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+          const addSqlParams = [`article_${articleId}`, type, cid, categoryName.join(','), forum, forumName.join(','), authorUid, authorName, title, summary, content, cover, moment().format('YYYY-MM-DD HH:mm:ss')];
           db.query(addSql, addSqlParams, (err, result) => {
             if (err) {
               res.send({
@@ -461,9 +573,9 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
         const articleId = sha1(JSON.stringify({
           create_time: moment(),
           cid,
-          plate,
+          forum,
         }));
-        const addSql = 'INSERT INTO article(article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, create_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        const addSql = 'INSERT INTO article(article_id, type, cid, category_name, forum, forum_name, author, author_name, title, summary, content, cover, create_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
         const addSqlParams = [`article_${articleId}`, type, cid, categoryName.join(','), '', '', authorUid, authorName, title, summary, content, cover, moment().format('YYYY-MM-DD HH:mm:ss')];
         db.query(addSql, addSqlParams, (err, result) => {
           if (err) {
@@ -486,15 +598,15 @@ router.post('/publishDraft', urlencodedParser, (req, res, next) => {
  * 获取新闻列表
  * @param {string} title - nullable - '文章标题' - null全部
  * @param {string} cid - nullable - '板块所属类目id' - null全部
- * @param {string} plate - nullable - '所属板块' - null全部
+ * @param {string} forum - nullable - '所属板块' - null全部
  * @param {string} author_name - nullable - '作者名字' - null全部
  * @param {string} page - nullable - '页码'
  * @param {string} limit - nullable - '每页展示多少条'
  */
 router.post('/getDraftList', urlencodedParser, (req, res) => {
-  const { article_id, title, cid, plate, author_name, page = 1, limit = 20 } = req.body;
-  let sql = 'SELECT article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article';
-  const pParams = { title, cid, plate, author_name, page, limit, article_id };
+  const { article_id, title, cid, forum, author_name, page = 1, limit = 20 } = req.body;
+  let sql = 'SELECT article_id, type, cid, category_name, forum, forum_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article';
+  const pParams = { title, cid, forum, author_name, page, limit, article_id };
   const getDraft = (tParams) => {
     const finalKeys = [];
     let searchSql = '';
@@ -518,7 +630,7 @@ router.post('/getDraftList', urlencodedParser, (req, res) => {
         searchSql = `${searchSql} AND ${key} in (${finalParams})`;
       }
     })
-    sql = `${sql}${searchSql} ORDER BY create_time ASC LIMIT ${(page - 1) * limit},${limit};`;
+    sql = `${sql}${searchSql} ORDER BY create_time DESC LIMIT ${(page - 1) * limit},${limit};`;
     db.query(sql, '', (err, articleList) => {
       if (err) {
         res.send({
@@ -581,15 +693,15 @@ router.post('/getDraftList', urlencodedParser, (req, res) => {
  * 获取新闻列表(如果通过cid查询，则查询该cid以及cid下所有子cid的新闻)
  * @param {string} title - nullable - '文章标题' - null全部
  * @param {string} cid - nullable - '板块所属类目id' - null全部
- * @param {string} plate - nullable - '所属板块' - null全部
+ * @param {string} forum - nullable - '所属板块' - null全部
  * @param {string} author_name - nullable - '作者名字' - null全部
  * @param {string} page - nullable - '页码'
  * @param {string} limit - nullable - '每页展示多少条'
  */
 router.post('/getCategoryDraft', urlencodedParser, (req, res) => {
-  const { title, cid, plate, author_name, page = 1, limit = 20 } = req.body;
-  let sql = 'SELECT article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article';
-  const tParams = { title, cid, pid: cid, plate, author_name, page, limit };
+  const { title, cid, forum, author_name, page = 1, limit = 20 } = req.body;
+  let sql = 'SELECT article_id, type, cid, category_name, forum, forum_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article';
+  const tParams = { title, cid, pid: cid, forum, author_name, page, limit };
   const finalKeys = [];
   let searchSql = '';
   Object.keys(tParams).forEach((key, index) => {
@@ -656,7 +768,7 @@ router.post('/getDraftInfo', urlencodedParser, (req, res) => {
     })
     return;
   }
-  let sql = `SELECT article_id, type, cid, category_name, plate, plate_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article WHERE article_id='${article_id}'`;
+  let sql = `SELECT article_id, type, cid, category_name, forum, forum_name, author, author_name, title, summary, content, cover, read_count, thumbs_count, comments, create_time FROM article WHERE article_id='${article_id}'`;
   db.query(sql, '', (err, articleInfo) => {
     if (err) {
       res.send({

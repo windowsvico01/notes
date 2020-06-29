@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import fetchData from '@/containers/App/sagas/fetchData';
-import { LOAD_CATEGORY, loadCategorySuccess, LOAD_PLATE, loadPlateSuccess, PUBLISH_DRAFT, fieldsChange } from './actions';
+import { LOAD_CATEGORY, loadCategorySuccess, LOAD_FORUM, loadForumSuccess, PUBLISH_DRAFT, fieldsChange } from './actions';
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 export function* handleLoadCategory(action) {
@@ -14,7 +14,7 @@ export function* handleLoadCategory(action) {
     yield put(loadCategorySuccess(result));
   }
 }
-export function* handleLoadPlate(action) {
+export function* handleLoadForum(action) {
   const { cid } = action.params;
   if (!cid) return;
   const formData = new FormData();
@@ -23,9 +23,9 @@ export function* handleLoadPlate(action) {
     method: 'POST',
     body: formData,
   }
-  const result = yield call(fetchData, { url: '/content/getPlate', options });
+  const result = yield call(fetchData, { url: '/content/getForum', options });
   if (result) {
-    yield put(loadPlateSuccess(result));
+    yield put(loadForumSuccess(result));
   }
 }
 export function* handlePublishDraft(action) {
@@ -45,7 +45,7 @@ export function* handlePublishDraft(action) {
 }
 export function* watcher() {
   yield takeLatest(LOAD_CATEGORY, handleLoadCategory)
-  yield takeLatest(LOAD_PLATE, handleLoadPlate)
+  yield takeLatest(LOAD_FORUM, handleLoadForum)
   yield takeLatest(PUBLISH_DRAFT, handlePublishDraft)
 }
 

@@ -13,6 +13,7 @@ const user = require('./api/user.js');
 const content = require('./api/content.js');
 const db = require('./api/db.js');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const GameLobby = require('./api/game.js');
 app.use(cors());
 app.use(cookieParser('123456'));
 app.use(urlencodedParser);
@@ -29,7 +30,9 @@ app.use('/content', content);
 //   res.status(404);
 //   res.send('NOT FOUND');
 // })
-
+// 游戏初始化
+const game = new GameLobby({ server });
+game.initSocket();
 const chatInfo = {
   users: [
     // { name: '', id: '' },

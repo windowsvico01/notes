@@ -7,11 +7,63 @@
     padding-top: 0; }
     .module-wrapper .text-list ul li {
       display: block;
-      height: 30px;
+      height: 55px;
       width: 100%;
-      background: #f3cde8;
       border-radius: 5px;
       margin-bottom: 10px;
-      line-height: 30px; }
+      line-height: 55px;
+      background-color: #f3cde8;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      color: #fff;
+      position: relative;
+      padding: 0 20px 0 20px;
+      cursor: pointer; }
       .module-wrapper .text-list ul li :last-child {
         margin-bottom: 0; }
+      .module-wrapper .text-list ul li:hover {
+        box-shadow: 0px 3px 10px 2px rgba(0, 0, 0, 0.1); }
+      .module-wrapper .text-list ul li a {
+        color: #fff;
+        font-weight: 400;
+        font-size: 20;
+        position: relative;
+        z-index: 9;
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left; }
+      .module-wrapper .text-list ul li .hot {
+        display: block;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        right: -2px;
+        top: -20px;
+        z-index: 1;
+        background-size: 100% 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url(https://moonlt-1301529976.cos.ap-beijing.myqcloud.com/huangguan.png); }
+        .module-wrapper .text-list ul li .hot .hot-num {
+          display: inline-block;
+          width: auto;
+          max-width: 60px;
+          min-width: 30px;
+          height: 18px;
+          background: red;
+          margin: 55px auto 0;
+          border: 1.5px solid gold;
+          border-radius: 8px;
+          font-size: 12px;
+          color: gold;
+          font-weight: 200;
+          line-height: 12px;
+          box-sizing: border-box;
+          padding: 1.7px 5px 1px;
+          overflow: hidden;
+          box-shadow: 0 0 4px 0.5px rgba(0, 0, 0, 0.3) inset; }

@@ -4,7 +4,7 @@
     {{if covers.length === 0 }}
       <div class="s-box no-cover">
         <div class="title-box">
-          <a href="/detail/{{article.article_id}}" target="_blank">{{article.title}}</a>
+          <a href="/detail/{{article.article_id}}" title="{{article.title}}"  target="_blank">{{article.title}}</a>
         </div>
         <div class="footer-box">
           <div class="s-left footer-box-left">
@@ -13,9 +13,9 @@
             {{each categorys as cate}}
               <a class="footer-box-action tag c-tag">{{cate}}</a>
             {{/each}}
-            {{set plate_name = article.plate_name ? article.plate_name.split(',') : []}}
-            {{set plate = article.plate ? article.plate.split(',') : []}}
-            {{each plate_name as pla}}
+            {{set forum_name = article.forum_name ? article.forum_name.split(',') : []}}
+            {{set forum = article.forum ? article.forum.split(',') : []}}
+            {{each forum_name as pla}}
               <a class="footer-box-action tag p-tag">{{pla}}</a>
             {{/each}}
             <a class="footer-box-action author-name">{{article.author_name}}</a>
@@ -34,7 +34,7 @@
         <div class="single-cover-right">
           <div class="single-cover-right-inner">
             <div class="title-box">
-              <a href="/detail/{{article.article_id}}" target="_blank">{{article.title}}</a>
+              <a href="/detail/{{article.article_id}}" title="{{article.title}}" target="_blank">{{article.title}}</a>
             </div>
             <div class="footer-box">
               <div class="s-left footer-box-left">
@@ -43,9 +43,9 @@
                 {{each categorys as cate}}
                   <a class="footer-box-action tag c-tag">{{cate}}</a>
                 {{/each}}
-                {{set plate_name = article.plate_name ? article.plate_name.split(',') : []}}
-                {{set plate = article.plate ? article.plate.split(',') : []}}
-                {{each plate_name as pla}}
+                {{set forum_name = article.forum_name ? article.forum_name.split(',') : []}}
+                {{set forum = article.forum ? article.forum.split(',') : []}}
+                {{each forum_name as pla}}
                   <a class="footer-box-action tag p-tag">{{pla}}</a>
                 {{/each}}
                 <a class="footer-box-action author-name">{{article.author_name}}</a>

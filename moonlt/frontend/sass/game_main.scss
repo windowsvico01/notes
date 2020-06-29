@@ -1,0 +1,95 @@
+@function px($px) {
+  $d-w: 750;
+  @return ($px * 10 / $d-w)  + rem;
+}
+$red: red;
+html,body {
+  padding: 0;
+  margin: 0;
+}
+.r-container {
+  width: px(700);
+  height: px(700);
+  border: 1px solid $red;
+  border-radius: px(5);
+  margin: px(25) auto;
+  position: relative;
+}
+.cell {
+  position: absolute;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding: px(10);
+  .inner {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #eee;
+  }
+}
+.player {
+  position: absolute;
+  font-size: 12px;
+  box-sizing: border-box;
+  width: px(50);
+  height: px(50);
+  background: pink;
+  text-align: center;
+  line-height: px(50);
+}
+.operateBox {
+  width: px(400);
+  height: auto;
+  margin: px(200) auto;
+  text-align: center;
+}
+.btn {
+  display: inline-block;
+  width: auto;
+  height: px(50);
+  border: 1px solid $red;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: px(50);
+  text-align: center;
+  padding: 0 px(20) 0;
+}
+.btn-start {
+  border: 1px solid $red;
+  margin: px(20) auto;
+}
+.btn-wait {
+  border: 1px solid #eee;
+  margin: px(20) auto;
+}
+.btn-ready {
+  border: 1px solid $red;
+  margin: px(200) auto;
+}
+.step-box {
+  width: px(100);
+  height: px(50);
+  border: 1px solid #eee;
+  font-size: 12px;
+  line-height: px(50);
+  text-align: center;
+  margin: px(30) auto;
+}
+.players-con {
+  width: px(700);
+  height: px(300);
+  border: 1px solid $red;
+  margin: px(30) auto;
+  text-align: center;
+  p {
+    width: 100%;
+    height: px(30);
+    line-height: px(30);
+    font-size: 12px;
+    text-align: center;
+  }
+  .btn {
+    margin: px(10) auto;
+  }
+}
+

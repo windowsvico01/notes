@@ -5,8 +5,8 @@
     </div>
     <div class="sub-box">
       <span class="tag category">{{category_name}}</span>
-      {{set plates = plate_name ? plate_name.split(',') : [] }}
-      {{each plates}}
+      {{set forum = forum_name ? forum_name.split(',') : [] }}
+      {{each forum}}
         <span class="tag plate">{{$value}}</span>
       {{/each}}
       <span>{{author_name}}</span>

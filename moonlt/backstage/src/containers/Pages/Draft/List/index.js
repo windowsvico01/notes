@@ -102,8 +102,8 @@ class List extends Component {
       key: 'category_name',
     }, {
       title: '所属板块',
-      dataIndex: 'plate_name',
-      key: 'plate_name',
+      dataIndex: 'forum_name',
+      key: 'forum_name',
     }, {
       title: '作者',
       dataIndex: 'author_name',

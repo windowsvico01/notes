@@ -1,8 +1,8 @@
 export const LOAD_CATEGORY = '/Draft/Add/LOAD_CATEGORY';
 export const LOAD_CATEGORY_SUCCESS = '/Draft/Add/LOAD_CATEGORY_SUCCESS';
 
-export const LOAD_PLATE = '/Draft/Add/LOAD_PLATE';
-export const LOAD_PLATE_SUCCESS = '/Draft/Add/LOAD_PLATE_SUCCESS';
+export const LOAD_FORUM = '/Draft/Add/LOAD_FORUM';
+export const LOAD_FORUM_SUCCESS = '/Draft/Add/LOAD_FORUM_SUCCESS';
 
 export const FIELDS_CHANGE = '/Draft/Add/FIELDS_CHANGE';
 
@@ -21,16 +21,16 @@ export function loadCategorySuccess(data) {
   };
 }
 
-export function loadPlate(params) {
+export function loadForum(params) {
   return {
-    type: LOAD_PLATE,
+    type: LOAD_FORUM,
     params,
   };
 }
 
-export function loadPlateSuccess(data) {
+export function loadForumSuccess(data) {
   return {
-    type: LOAD_PLATE_SUCCESS,
+    type: LOAD_FORUM_SUCCESS,
     data,
   };
 }

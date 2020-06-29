@@ -1,10 +1,10 @@
 export const LOAD_CATEGORY = '/Manage/Category/Detail/LOAD_CATEGORY';
 export const LOAD_CATEGORY_SUCCESS = '/Manage/Category/Detail/LOAD_CATEGORY_SUCCESS';
 
-export const LOAD_PLATE = '/Manage/Category/Detail/LOAD_PLATE';
-export const LOAD_PLATE_SUCCESS = '/Manage/Category/Detail/LOAD_PLATE_SUCCESS';
+export const LOAD_FORUM = '/Manage/Category/Detail/LOAD_FORUM';
+export const LOAD_FORUM_SUCCESS = '/Manage/Category/Detail/LOAD_FORUM_SUCCESS';
 
-export const ADD_PLATE = '/Manage/Category/Detail/ADD_PLATE';
+export const ADD_FORUM = '/Manage/Category/Detail/ADD_FORUM';
 
 export const FIELDS_CHANGE = '/Manage/Category/Detail/FIELDS_CHANGE';
 
@@ -24,23 +24,23 @@ export function loadCategorySuccess(data) {
   };
 }
 
-export function loadPlate(params) {
+export function loadForum(params) {
   return {
-    type: LOAD_PLATE,
+    type: LOAD_FORUM,
     params,
   };
 }
 
-export function loadPlateSuccess(data) {
+export function loadForumSuccess(data) {
   return {
-    type: LOAD_PLATE_SUCCESS,
+    type: LOAD_FORUM_SUCCESS,
     data,
   };
 }
 
-export function addPlate(params) {
+export function addForum(params) {
   return {
-    type: ADD_PLATE,
+    type: ADD_FORUM,
     params,
   }
 }
