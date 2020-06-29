@@ -47,6 +47,7 @@ router.post('/register', urlencodedParser, (req, res, next) => {
     }
     res.cookie('token', token, { domain: '127.0.0.1' });
     res.cookie('token', token, { domain: '62.234.73.102' });
+    res.cookie('token', token, { domain: 'www.moonlt.cn' });
     res.send({
       'code': 0,
       'msg': '成功',
@@ -98,6 +99,7 @@ router.post('/login', urlencodedParser, (req, res) => {
         }
         res.cookie('token', token, { domain: '127.0.0.1' });
         res.cookie('token', token, { domain: '62.234.73.102' });
+        res.cookie('token', token, { domain: 'www.moonlt.cn' });
         res.send({
           'code': 0,
           'msg': '成功',
