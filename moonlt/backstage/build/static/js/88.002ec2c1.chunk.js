@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[88],{263:function(n,t,e){"use strict";e.r(t),e.d(t,"selectUsers",function(){return c}),e.d(t,"selectTotal",function(){return o}),e.d(t,"selectCurrent",function(){return s}),e.d(t,"selectMenus",function(){return i});var r=e(44),u=function(n){return n.get("Permission/Manager")},c=Object(r.a)(u,function(n){return n&&n.userList}),o=Object(r.a)(u,function(n){return n&&n.total}),s=Object(r.a)(u,function(n){return n&&n.current}),i=Object(r.a)(u,function(n){return n&&n.menus})}}]);
+//# sourceMappingURL=88.002ec2c1.chunk.js.map
