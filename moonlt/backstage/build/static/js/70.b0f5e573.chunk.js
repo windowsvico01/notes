@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[70],{254:function(t,n,e){"use strict";e.r(n),e.d(n,"selectCategoryList",function(){return o}),e.d(n,"selectForumList",function(){return c}),e.d(n,"selectFields",function(){return i});var r=e(44),u=function(t){return t.get("Draft/Add")},c=Object(r.a)(u,function(t){return t&&t.forumList}),i=Object(r.a)(u,function(t){return t&&t.fields}),o=Object(r.a)(u,function(t){return t&&t.categoryList})}}]);
-//# sourceMappingURL=70.b0f5e573.chunk.js.map

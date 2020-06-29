@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[86],{268:function(t,n,e){"use strict";e.r(n),e.d(n,"selectForumList",function(){return c}),e.d(n,"selectPage",function(){return o}),e.d(n,"selectTotal",function(){return i});var r=e(44),u=function(t){return t.get("Manage/Forum/List")},c=Object(r.a)(u,function(t){return t&&t.forumList}),o=Object(r.a)(u,function(t){return t&&t.page}),i=Object(r.a)(u,function(t){return t&&t.total})}}]);
+//# sourceMappingURL=86.89aef431.chunk.js.map
