@@ -129,7 +129,7 @@ class Add extends Component {
     console.log(window.location.hostname);
     const uploadProps = {
       name: 'file',
-      action: window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:3000/user/fileUpload' : 'http://62.234.73.102:3000/user/fileUpload',
+      action: window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:80/user/fileUpload' : 'http://62.234.73.102:80/user/fileUpload',
       className: 'avatar-uploader',
       showUploadList: true,
       listType: 'picture-card',

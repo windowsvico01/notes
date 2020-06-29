@@ -32,7 +32,7 @@ const getCookie = (name) => {
 export default function* fetchData({url, options, successMessage, loadIdentify = 'global', mapResult, hideSpinning}) {
   let data;
   let finalURL = '';
-  if (window.location.hostname === '127.0.0.1') finalURL = `http://127.0.0.1:3000${url}`;
+  if (window.location.hostname === '127.0.0.1') finalURL = `http://127.0.0.1:80${url}`;
   else finalURL = url;
   try {
     yield put(loading(loadIdentify));
