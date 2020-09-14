@@ -10,7 +10,7 @@ const https = require("https");
 const fs = require("fs");
 const httpsOption = {
   key : fs.readFileSync("./https/2_www.moonlt.cn.key"), 
-  cert: fs.readFileSync("./https/1_www.moonlt.cn_bundle.crt")
+  cert: fs.readFileSync("./https/1_www.moonlt.cn_bundle.pem")
 }
 
 const api = require('./api/index.js');
