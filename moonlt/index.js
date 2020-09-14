@@ -6,7 +6,12 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const moment = require('moment');
 const multipart = require('connect-multiparty');
-
+const https = require("https");
+const fs = require("fs");
+const httpsOption = {
+  key : fs.readFileSync("./https/2_www.moonlt.cn.key"), 
+  cert: fs.readFileSync("./https/1_www.moonlt.cn_bundle.crt")
+}
 
 const api = require('./api/index.js');
 const user = require('./api/user.js');
@@ -132,6 +137,9 @@ saveMsg = (room, params, cb) => {
   })
 }
 server.setTimeout(600*1000);
-server.listen(443, function() {
-    console.log('正在监听443端口');
+server.listen(80, function() {
+    console.log('正在监听80端口');
 })
+https.createServer(httpsOption, app).listen(443, function() {
+  console.log('https监听443端口')
+});
