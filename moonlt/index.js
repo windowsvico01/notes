@@ -132,6 +132,6 @@ saveMsg = (room, params, cb) => {
   })
 }
 server.setTimeout(600*1000);
-server.listen(80, function() {
-    console.log('正在监听80端口');
+server.listen(443, function() {
+    console.log('正在监听443端口');
 })
